@@ -6,7 +6,12 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/popt/code/W23/connect_z/mysql-connector-j-8.0.32.jar">
+	<classpathentry kind="lib" path="/home/popt/code/W23/connect_z/lib/mysql-connector-j-8.0.32.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/home/popt/code/W23/connect_z/lib/graphql-java-16.2.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
