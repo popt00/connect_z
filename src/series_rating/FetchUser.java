@@ -64,6 +64,52 @@ public class FetchUser {
         in.close();
         
     }
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public ArrayList<String> getAnimeName() {
+        return animeName;
+    }
+
+    public void setAnimeName(ArrayList<String> animeName) {
+        this.animeName = animeName;
+    }
+
+    public ArrayList<Integer> getAnimeRating() {
+        return animeRating;
+    }
+
+    public void setAnimeRating(ArrayList<Integer> animeRating) {
+        this.animeRating = animeRating;
+    }
+    public ArrayList<String> getAnimeUrl() {
+        return animeUrl;
+    }
+
+    public void setAnimeUrl(ArrayList<String> animeUrl) {
+        this.animeUrl = animeUrl;
+    }
+
+    public ArrayList<String> getAnimeStatus() {
+        return animeStatus;
+    }
+
+    public void setAnimeStatus(ArrayList<String> animeStatus) {
+        this.animeStatus = animeStatus;
+    }
+
+    public int getLen() {
+        return len;
+    }
+
+    public void setLen(int len) {
+        this.len = len;
+    }
     void fetch_data(ArrayList<Character> ar) {
     	/**
     	 * Watching, Completed, Paused, Planning
@@ -169,20 +215,15 @@ public class FetchUser {
     void print() {
     	if(this.len==0) {
     		System.out.println("none fetched");
+    		return;
     	}
+    	System.out.println("--------------------------------------------------------");
+    	System.out.println("Username: "+this.username);
     	for(int i=0;i<this.len;i++) {
     		System.out.println(i+" "+this.animeName.get(i) +"\t\t"+ this.animeRating.get(i)+"\t\t"
     				+ this.animeUrl.get(i)+"\t\t"+ this.animeStatus.get(i));
     	}
+    	System.out.println("--------------------------------------------------------");
     }
-    public boolean addUser() {
-    	DatabaseCon con = new DatabaseCon();
-    	int user_id = con.getUserId(this.username);
-    	if(user_id==-1) {
-    		user_id= con.getmaxUserId()+1;
-    		
-    	}
-    	
-    	return true;
-    }
+    
 }

@@ -26,10 +26,18 @@ public class ProjectDemo {
 		System.out.println("Starting project connect_z");
 		Scanner s = new Scanner(System.in);
 		DatabaseCon con = new DatabaseCon();
-		con.runQuery("SELECT max_user_id FROM z_id_keeper");
+		con.checkcon();
+//		System.out.println(con.getUserId("popt"));
+//		con.addUser("popt", "popt@gamil.com");
+//		System.out.println(con.getUserId("popt"));
+//		int ser_id = con.getSeriesId("temp");
+//		if(ser_id==-1) {
+//			ser_id=con.addSeries("temp", "tempurl");
+//		}
+		
 		System.out.println("done");
 //		con.runQuery("UPDATE z_id_keeper SET max_user_id = "+ Integer.toString(2));
-		boolean flag=false;
+		boolean flag=true;
 		while(flag) {
 			System.out.println("1) Do you want to fetch dataset from anilist and add it to database?");
 			System.out.println("2) Search user series list");
@@ -37,23 +45,25 @@ public class ProjectDemo {
 			System.out.println("other keys for Exit");
 			String user_input = s.nextLine();
 			if(user_input.equals("1")) {
-				System.out.print("\t\tProvide user name:");
+				System.out.print("\tProvide user name:");
 				String username= s.nextLine();
 				FetchUser fetched_user = new FetchUser(username);
 				System.out.println("\tUser Data Fetched");
-				fetched_user.print();
+//				fetched_user.print();
 //				System.out.println("\t\tProvide user name");
-				fetched_user.addUser();
+				con.addfetchedUser(fetched_user);
+				System.out.println(username+" added");
 				//appeding data in sql
 			}
 			else if(user_input.equals("2")) {
-				System.out.print("\t\tProvide user name:");
+				System.out.print("\tProvide user name:");
 				String username= s.nextLine();
 				int user_id = con.getUserId(username);
 				if(user_id==-1) {
-					System.out.println("\t\t\t provided username does not exist, Kindly check again");
+					System.out.println("\t\tProvided username does not exist, Kindly check again");
 					continue;
 				}
+				
 				//TOdo
 			}
 			else if(user_input.equals("3")) {

@@ -1,23 +1,21 @@
 CREATE DATABASE connect_z;
 use connect_z;
 
---1) user_id, username, name, age, email
 CREATE TABLE z_user (
   user_id   INTEGER    NOT NULL,
   username  VARCHAR(64) NOT NULL,
-  email  VARCHAR(64),
-  name  VARCHAR(64),
+  email  VARCHAR(128),
+  name  VARCHAR(128),
   age INTEGER
 );
 
---2)animes, id, anme name, url,
-CREATE TABLE z_anime (
+
+CREATE TABLE z_series (
   series_id   INTEGER    NOT NULL,
-  series_name  VARCHAR(64) NOT NULL,
-  url  VARCHAR(64) NOT NULL
+  series_name  VARCHAR(256) NOT NULL,
+  url  VARCHAR(512) NOT NULL
 );
 
---3) table_main : user_id, anime_id, rating, status
 CREATE TABLE z_main (
   user_id   INTEGER    NOT NULL,
   series_id   INTEGER    NOT NULL,
@@ -25,7 +23,6 @@ CREATE TABLE z_main (
   series_status  VARCHAR(64)
 );
 
---4) keeper max_user_id, max_anime_id
 CREATE TABLE z_id_keeper (
   max_user_id   INTEGER    NOT NULL,
   max_series_id   INTEGER    NOT NULL
