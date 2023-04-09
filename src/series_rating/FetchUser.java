@@ -7,8 +7,10 @@ package series_rating;
  * @author popt
  * anime name, website , rating, username, 
  */
+import series_rating.DatabaseCon;
 import java.util.*;
 import java.net.*;
+import java.sql.ResultSet;
 import java.io.*;
 public class FetchUser {
 	private String username;
@@ -58,7 +60,7 @@ public class FetchUser {
         System.out.println("done fetching website");
         fetch_data(ar_chr);
         System.out.println("done fetching data");
-        System.out.println(" len:"+ar_chr.size());
+//        System.out.println(" len:"+ar_chr.size());
         in.close();
         
     }
@@ -115,6 +117,7 @@ public class FetchUser {
     						}
     						else if(check(ar,i,"iv score=")) {
     							u_score = (int)ar.get(i+"iv score=1".length())-48;
+    							if(u_score==0)u_score=6;
     							this.animeName.add(u_animeName);
         						this.animeRating.add(u_score);
         						this.animeUrl.add(u_animeWebsite);
@@ -171,5 +174,15 @@ public class FetchUser {
     		System.out.println(i+" "+this.animeName.get(i) +"\t\t"+ this.animeRating.get(i)+"\t\t"
     				+ this.animeUrl.get(i)+"\t\t"+ this.animeStatus.get(i));
     	}
+    }
+    public boolean addUser() {
+    	DatabaseCon con = new DatabaseCon();
+    	int user_id = con.getUserId(this.username);
+    	if(user_id==-1) {
+    		user_id= con.getmaxUserId()+1;
+    		
+    	}
+    	
+    	return true;
     }
 }
