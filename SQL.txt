@@ -28,7 +28,6 @@ CREATE TABLE z_id_keeper (
   max_series_id   INTEGER    NOT NULL
 );
 
-INSERT INTO  z_id_keeper(max_user_id, max_series_id)
-VALUES (1,1);
+INSERT INTO  z_id_keeper(max_user_id, max_series_id) VALUES (0,0);
 
 
