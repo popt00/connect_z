@@ -43,7 +43,7 @@ public class FetchUser {
 
         String inputLine;
         ArrayList<Character> ar_chr= new ArrayList<>();
-        PrintWriter pr = new PrintWriter("src/files/"+username+".html");
+        PrintWriter pr = new PrintWriter("src/files/"+username+".txt");
         while ((inputLine = in.readLine()) != null) {
         	pr.print(inputLine);
         	for(int i=0;i<inputLine.length();i++) {
