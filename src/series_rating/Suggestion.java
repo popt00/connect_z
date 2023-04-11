@@ -58,8 +58,8 @@ public class Suggestion {
 	public boolean run() throws SQLException{
 		DatabaseCon con= new DatabaseCon();
 		int [][]u_series= con.getUserData(user_id, "series_id","rating");
-		for(int i=0;i<u_series.length;i++)System.out.print(u_series[i][0]+",");
-		System.out.println("fetched main series");
+		//for(int i=0;i<u_series.length;i++)System.out.print(u_series[i][0]+",");
+		System.out.println("\tDoing processing");
 //		System.out.println(u_ser_id.toString());
 //		System.out.println(u_rating.toString());
 		int max_user = con.getmaxUserId()+1;
@@ -71,14 +71,13 @@ public class Suggestion {
 			int i_ser_id = u_series[i][0];
 			int i_ser_rating = u_series[i][1];
 			int [][] users = con.getSeriesData(i_ser_id, "user_id", "rating");
-			System.out.print(i+"("+users.length+"),");//debugging
+			//System.out.print(i+"("+users.length+"),");//debugging
 			for(int j=0;j<users.length;j++) {
 				int diff = Math.abs(i_ser_rating - users[j][1]);
 				resonance[users[j][0]][0]+= formula[diff];
 				resonance[users[j][0]][1]+= 10;
 			}
 		}
-		System.out.println("fetched other series");
 		float prob[][]=new float[max_user][2];
 		for(int i=0;i<max_user;i++) {
 //			System.out.print("{"+resonance[i][0]+","+resonance[i][1]+"}");
@@ -87,7 +86,7 @@ public class Suggestion {
 			else prob[i][1]= (1f*resonance[i][0])/resonance[i][1];
 		}
 		//some debugging		
-		for(int i=0;i<max_user;i++)System.out.print(prob[i][1]+",");System.out.println("");
+		//for(int i=0;i<max_user;i++)System.out.print(prob[i][1]+",");System.out.println("");
 		prob[user_id][1]=0;
 		
 		Arrays.sort(prob, new Comparator<float[]>() {
@@ -101,9 +100,16 @@ public class Suggestion {
 		while(size==0 && index<max_user) {
 			this.max_aff_user = (int)prob[index][0];
 			this.max_user_resonace = prob[index][1];
+			//first column is series ID, second column is rating
 			int [][] other_user= con.getOtherUser(this.max_aff_user, this.user_id);
-			System.out.print(this.max_aff_user+"("+other_user.length+"),");
-			//System.out.println(other_user.length +",,,,,,");
+			//sorting array from 9 to 0 
+			Arrays.sort(other_user, new Comparator<int[]>() {
+				public int compare(int[]a, int[]b) {
+					return Integer.compare(b[1], a[1]);
+				}
+			});
+			//System.out.print(this.max_aff_user+"("+other_user.length+"),"); //debugging
+			//adding to Suggetion object
 			for(int i=0;i<other_user.length;i++) {
 				this.ser_Ids.add(other_user[i][0]);
 				this.prob.add(other_user[i][1]*this.max_user_resonace);

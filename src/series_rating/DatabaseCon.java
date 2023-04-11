@@ -201,16 +201,15 @@ public class DatabaseCon {
 		DatabaseCon con = new DatabaseCon();
 		int user_id = con.getUserId(u_user.getUsername());
 		if (user_id == -1) {
-			System.out.println("user does not exist creating user");
 			user_id = addUser(u_user.getUsername(), "temp1234@email.com");
-			System.out.println("user "+ u_user.getUsername()+" with id " +user_id+" created" );
+			System.out.println("\tuser does not exist, user "+ u_user.getUsername()+" with id " +user_id+" created" );
 		}
 		ArrayList<String> animeName = u_user.getAnimeName();
 		ArrayList<Integer> animeRating = u_user.getAnimeRating();
 		ArrayList<String> animeUrl = u_user.getAnimeUrl();
 		ArrayList<String> animeStatus= u_user.getAnimeStatus();
 		try {
-			
+			System.out.println("\tAdding "+u_user.getUsername()+" to database ");
 			String sql = "INSERT INTO z_main (user_id, series_id, rating, series_status)"
 					+ " VALUES (?, ?, ?, ?)";
 			Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -228,7 +227,7 @@ public class DatabaseCon {
 	            pstmt.setString(4, animeStatus.get(i));
 	            pstmt.executeUpdate();
 	        }
-	        
+	        System.out.println("\t"+u_user.getUsername()+" added");
 	        pstmt.close();
 		}catch (SQLException e) {
 			// TODO Auto-generated catch block
