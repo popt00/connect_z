@@ -64,6 +64,7 @@ public class DatabaseCon {
 	}
 
 	public int getSeriesId(String u_series_name) {
+		//u_series_name= u_series_name.replace("'", "");
 		String query = "SELECT series_id FROM z_series WHERE series_name = '" + u_series_name + "'";
 		int series_id=-1;
 		try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -430,7 +431,7 @@ public class DatabaseCon {
 	public int[][] getOtherUser(int user_id_in, int user_id_not_in) {
 		String query = "SELECT series_id,rating FROM z_main WHERE user_id = " + Integer.toString(user_id_in)
 				+ " and series_id not in (SELECT series_id from z_main "
-				+ "where user_id = " + Integer.toString(user_id_in)+" );";
+				+ "where user_id = " + Integer.toString(user_id_not_in)+" );";
 		ArrayList<Integer> arr=new ArrayList<>();
 		ArrayList<Integer> arr2=new ArrayList<>();
 		try {

@@ -29,7 +29,6 @@ public class ProjectDemo {
 //		System.out.println("done");
 		var flag=true;var  flag_input_4=true;
 		int user_id=-1;
-		//System.out.println(con.getOtherUser(2, 1).length);
 //		flag = false;
 		String user_input="1";
 		String horiLine ="------------------------------------------------------------------------";
@@ -49,8 +48,8 @@ public class ProjectDemo {
 				System.out.print("\tProvide user name:");
 				String username= s.nextLine();
 				FetchUser fetched_user = new FetchUser(username);
-				System.out.println("\tUser Data Fetched");
-				fetched_user.print();
+				System.out.println("\tUser Data Fetched with "+ fetched_user.getLen());
+				//fetched_user.print(); //for debugging
 				//appeding data in sql
 				user_id=  con.addfetchedUser(fetched_user);
 				System.out.println(username+" added");

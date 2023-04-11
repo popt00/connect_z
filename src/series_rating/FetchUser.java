@@ -85,7 +85,7 @@ public class FetchUser {
 //    				System.out.println(divCounter);
     				if(check(ar,i,"<div")) {divCounter++;}
         			else if(check(ar,i,"</div>")) {divCounter--;}
-        			else if(check(ar,i,"entry row")) {
+        			else if(check(ar,i,"entry row")||check(ar,i,"entry-card") ) {
 //        				arPrint(ar, i, i+10, 2);
     					String u_animeName="";
     					String u_animeWebsite="";
@@ -118,7 +118,7 @@ public class FetchUser {
     						else if(check(ar,i,"iv score=")) {
     							u_score = (int)ar.get(i+"iv score=1".length())-48;
     							if(u_score==0)u_score=6;
-    							this.animeName.add(u_animeName);
+    							this.animeName.add(u_animeName.replace("'", ""));
         						this.animeRating.add(u_score);
         						this.animeUrl.add(u_animeWebsite);
         						this.animeStatus.add(u_status);
