@@ -11,6 +11,7 @@ public class User {
         this.name = user.get("name").toString();
         this.id = Integer.parseInt(user.get("id").toString());
     }
+
     public User(String name, int id){
         this.name = name;
         this.id = id;
