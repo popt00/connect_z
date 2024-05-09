@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Homepage</title>
+</head>
+<body>
+    <div>
+        <h2>
+            <a th:text = ${userData.user.name} th:href = "'https://anilist.co/user/'+${userData.user.id}" target="_blank" >
+        </h2>
+    </div>
+    <div>
+        <table>
+            <tr>
+                <td>Name</td>
+                <td>Rating</td>
+                <td>status</td>
+            </tr>
+            <tr th:each = "tempRow: ${userData.entries}">
+                <td>
+                    <a th:text = ${tempRow.media.title} th:href = "'https://anilist.co/anime/'+${tempRow.media.anilistId}" target="_blank" >
+                </td>
+                <td th:text = ${tempRow.score}>
+                <td th:text = ${tempRow.status}>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
