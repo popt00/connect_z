@@ -6,6 +6,7 @@ public class User {
     public static final String QUERY = "user {name,id}";
     private String name;
     private Integer id;
+    private String password;
 
     public User(JSONObject user){
         this.name = user.get("name").toString();

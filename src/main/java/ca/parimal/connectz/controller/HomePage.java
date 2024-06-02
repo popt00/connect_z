@@ -26,7 +26,7 @@ public class HomePage {
     public String getUser(@PathVariable String username, Model model) throws IOException {
         //System.out.println(username);
         MediaListCollection mediaListCollection = new MediaListController().getMediaList(username);
-        //userData.scrape();
+                                                                                                                                                                                                                                                                                                                         //userData.scrape();
 //        System.out.println(userData.getSeriesRatingData());
         model.addAttribute("userData",mediaListCollection);
         return "home";

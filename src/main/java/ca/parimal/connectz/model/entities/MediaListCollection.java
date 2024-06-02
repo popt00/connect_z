@@ -16,7 +16,7 @@ public class MediaListCollection {
              JSONArray  entriesJSONObject = (JSONArray) ((JSONObject)obj.get(i)).get("entries");
              for(int j=0;j<entriesJSONObject.size();j++) {
                  //System.out.println(entriesJSONObject.get(j).toString());
-                 Entry entryObj = new Entry((JSONObject) entriesJSONObject.get(j));
+                 Entry entryObj = new Entry((JSONObject) entriesJSONObject.get(j),user);
                  entries.add(entryObj);
              }
          }
@@ -49,50 +49,5 @@ public class MediaListCollection {
                 '}';
     }
 
-    public class Entry{
-        public Media media;
-        public int score;
-        //range 0-100
-        public String status;
 
-        public Entry(Media media) {}
-        public Entry(JSONObject obj) {
-            media = new Media((JSONObject) obj.get("media"));
-            score = Integer.parseInt(obj.get("score").toString());
-            status = obj.get("status").toString();
-            //System.out.println(this);
-        }
-        public Media getMedia() {
-            return media;
-        }
-
-        public void setMedia(Media media) {
-            this.media = media;
-        }
-
-        public double getScore() {
-            return score;
-        }
-
-        public void setScore(int score) {
-            this.score = score;
-        }
-
-        public String getStatus() {
-            return status;
-        }
-
-        public void setStatus(String status) {
-            this.status = status;
-        }
-
-        @Override
-        public String toString() {
-            return "Entry{" +
-                    "media=" + media.toString() +
-                    ", score=" + score +
-                    ", status='" + status + '\'' +
-                    '}';
-        }
-    }
 }
