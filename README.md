@@ -1,2 +1,1 @@
-JAVA project for fetching user data from anilist api, copy data in local device, 
-and then using device data to recommend similar series that usee did not watched.
+JAVA project for fetching user and user's frieds data from anilist api, comparing their lists and ranking their friends
