@@ -15,7 +15,6 @@ public class Entry{
         score = Integer.parseInt(obj.get("score").toString());
         status = obj.get("status").toString();
         this.user = user;
-        //System.out.println(this);
     }
     public Media getMedia() {
         return media;
