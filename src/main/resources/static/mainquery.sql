@@ -4,10 +4,12 @@ USE `connectz`;
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
+    `data_id`   int,
 	`user_id` 	int			NOT NULL,
     `name`		varchar(50)	NOT NULL,
     `password`	varchar(50),
-    PRIMARY KEY(`user_id`)
+    `active`    int         DEFAULT 1,
+    PRIMARY KEY(`data_id`)
 ) Engine=InnoDB DEFAULT CHARSET=latin1;
 
 DROP TABLE IF EXISTS `roles`;
@@ -17,14 +19,15 @@ CREATE TABLE `roles` (
     UNIQUE KEY `authorities_idx_1` (`user_id`,`role`),
     CONSTRAINT `authorities_idfk_1`
 		FOREIGN KEY (`user_id`)
-        REFERENCES `users`(`user_id`)
+        REFERENCES `users`(`data_id`)
 ) Engine=InnoDB DEFAULT CHARSET=latin1;
 
 
 DROP TABLE IF EXISTS `media`;
 CREATE TABLE `media`(
 	`media_id`	int			NOT NULL,
-    `title`		varchar(50)
+    `title`		varchar(50),
+    PRIMARY KEY(`media_id`)
 ) Engine=InnoDB DEFAULT CHARSET=latin1;
 
 DROP TABLE IF EXISTS `entry`;
@@ -38,7 +41,7 @@ CREATE TABLE `entry` (
     
     CONSTRAINT `entries_idfk_user_1`
 		FOREIGN KEY (`user_id`)
-        REFERENCES `users`(`user_id`),
+        REFERENCES `users`(`data_id`),
 	CONSTRAINT `entries_idfk_media_1`
 		FOREIGN KEY (`media_id`)
         REFERENCES `media`(`media_id`)

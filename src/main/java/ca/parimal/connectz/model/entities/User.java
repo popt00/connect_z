@@ -1,12 +1,34 @@
 package ca.parimal.connectz.model.entities;
 
+import jakarta.persistence.*;
 import org.json.simple.JSONObject;
 
+import java.util.Set;
+
+@Entity
+@Table(name="users")
 public class User {
     public static final String QUERY = "user {name,id}";
-    private String name;
+
+    @Id
+    @GeneratedValue (strategy = GenerationType.AUTO)
+    @Column(name = "data_id")
+    private Long dataId;
+
+    @Column(name="user_id")
     private Integer id;
+
+    @Column(name="name")
+    private String name;
+
+    @Column(name="password")
     private String password;
+
+    @Column(name="active")
+    private Integer active;
+
+    @OneToMany(mappedBy = "user")
+    Set<Entry> entries;
 
     public User(JSONObject user){
         this.name = user.get("name").toString();
@@ -16,7 +38,13 @@ public class User {
     public User(String name, int id){
         this.name = name;
         this.id = id;
+        this.dataId = null;
     }
+
+    public User() {
+
+    }
+
     public String getName() {
         return name;
     }
@@ -25,13 +53,28 @@ public class User {
         this.name = name;
     }
 
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Integer getActive() {
+        return active;
+    }
+
+    public void setActive(Integer active) {
+        this.active = active;
     }
 
     @Override

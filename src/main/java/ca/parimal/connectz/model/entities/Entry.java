@@ -1,13 +1,34 @@
 package ca.parimal.connectz.model.entities;
 
+import jakarta.persistence.*;
 import org.json.simple.JSONObject;
 
+@Entity(name = "entry")
 public class Entry{
+
+    @EmbeddedId
+    EntryKey id;
+
+    @ManyToOne
+    @MapsId("userId")
+    @JoinColumn(name = "user_id")
     public User user;
+
+    @ManyToOne
+    @MapsId("mediaId")
+    @JoinColumn(name = "media_id")
     public Media media;
-    public int score;
+
+
+    @JoinColumn(name = "score")
+    public Integer score;
     //range 0-100
+
+    @JoinColumn(name = "status")
     public String status;
+
+    public Entry() {
+    }
 
     public Entry(Media media) {}
     public Entry(JSONObject obj, User user) {
@@ -24,11 +45,11 @@ public class Entry{
         this.media = media;
     }
 
-    public double getScore() {
+    public Integer getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(Integer score) {
         this.score = score;
     }
 

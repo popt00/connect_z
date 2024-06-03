@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div>
+        <div>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>id</th>
+                    <th>active</th>
+                </tr>
+                <tr th:each ="tempRow : ${user}">
+                    <td th:text = "${tempRow.name}"></td>
+                    <td th:text = "${tempRow.id}"></td>
+                    <td th:text = "${tempRow.active}"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

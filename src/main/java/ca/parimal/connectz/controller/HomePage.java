@@ -1,35 +1,41 @@
 package ca.parimal.connectz.controller;
 
-import ca.parimal.connectz.model.FetchUser;
+import ca.parimal.connectz.model.dao.UserDao;
 import ca.parimal.connectz.model.entities.MediaListCollection;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import ca.parimal.connectz.model.entities.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.URLEncoder;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
-@Controller
+//@Controller
 public class HomePage {
+
+    UserDao userDao;
+    public HomePage(UserDao userDao) {
+        this.userDao = userDao;
+    }
+
     @GetMapping("/getUser/{username}")
     public String getUser(@PathVariable String username, Model model) throws IOException {
         //System.out.println(username);
         MediaListCollection mediaListCollection = new MediaListController().getMediaList(username);
-                                                                                                                                                                                                                                                                                                                         //userData.scrape();
+        //User user = mediaListCollection.getUser();//new User("parimal", 200);
+        userDao.save();
+
 //        System.out.println(userData.getSeriesRatingData());
         model.addAttribute("userData",mediaListCollection);
         return "home";
+    }
+
+    @GetMapping("/all")
+    public String getAllUsers(Model model) throws IOException {
+        List<User> user = userDao.fethAll();
+        model.addAttribute("user",user);
+        return "alluser";
     }
 
 }
