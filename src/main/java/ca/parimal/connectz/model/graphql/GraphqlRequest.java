@@ -1,4 +1,4 @@
-package ca.parimal.connectz.controller;
+package ca.parimal.connectz.model.graphql;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -10,8 +10,8 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-public class GraphqlFetch {
-    public JSONObject fetch(String userName, String query){
+public class GraphqlRequest {
+    public JSONObject send(String userName, String query){
         String url ="https://graphql.anilist.co";
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()

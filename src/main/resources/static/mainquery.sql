@@ -9,7 +9,8 @@ CREATE TABLE `users` (
                          `username`		varchar(50)	NOT NULL,
                          `password`	varchar(50),
                          `active`    int         DEFAULT 1,
-                         PRIMARY KEY(`user_id`)
+                         PRIMARY KEY(`user_id`),
+                         UNIQUE KEY(`anilist_user_id`)
 ) Engine=InnoDB DEFAULT CHARSET=latin1;
 
 DROP TABLE IF EXISTS `roles`;
@@ -30,7 +31,8 @@ CREATE TABLE `media`(
                         `media_id`	BIGINT NOT NULL AUTO_INCREMENT,
                         `anilist_media_id` BIGINT not null,
                         `title`		varchar(50) default "okay",
-                        PRIMARY KEY(`media_id`)
+                        PRIMARY KEY(`media_id`),
+                        UNIQUE KEY(`anilist_media_id`)
 ) Engine=InnoDB DEFAULT CHARSET=latin1;
 
 DROP TABLE IF EXISTS `entry`;

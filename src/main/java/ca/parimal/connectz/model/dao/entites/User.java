@@ -1,16 +1,11 @@
-package ca.parimal.connectz.model.entities.dao;
+package ca.parimal.connectz.model.dao.entites;
 
 import jakarta.persistence.*;
-import org.json.simple.JSONObject;
 
 @Entity
 @Table(name="users")
 public class User {
-    public static final String QUERY = "user {name,id}";
-    public User(JSONObject user){
-        this.name = user.get("name").toString();
-        this.anilistUserId = Integer.parseInt(user.get("id").toString());
-    }
+
 
 
     @Id

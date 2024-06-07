@@ -1,4 +1,4 @@
-package ca.parimal.connectz.model.entities.dao;
+package ca.parimal.connectz.model.dao.entites;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
@@ -10,10 +10,10 @@ import java.io.Serializable;
 public class EntryKey implements Serializable {
 
     @Column(name = "user_id")
-    Long userId;
+    private Long userId;
 
     @Column(name = "media_id")
-    Long mediaId;
+    private Long mediaId;
 
     public EntryKey() {}
 

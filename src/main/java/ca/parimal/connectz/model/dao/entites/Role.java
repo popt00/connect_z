@@ -1,4 +1,4 @@
-package ca.parimal.connectz.model.entities.dao;
+package ca.parimal.connectz.model.dao.entites;
 
 import jakarta.persistence.*;
 
@@ -12,10 +12,10 @@ public class Role {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    User userId;
+    private User userId;
 
     @Column(name = "role")
-    String role;
+    private     String role;
 
     public Role(User userId, String role) {
         this.userId = userId;

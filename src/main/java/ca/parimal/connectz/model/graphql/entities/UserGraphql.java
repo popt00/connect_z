@@ -1,6 +1,6 @@
-package ca.parimal.connectz.model.entities.graphql;
+package ca.parimal.connectz.model.graphql.entities;
 
-import ca.parimal.connectz.model.entities.dao.User;
+import ca.parimal.connectz.model.dao.entites.User;
 import org.json.simple.JSONObject;
 
 public class UserGraphql extends User {
@@ -12,5 +12,6 @@ public class UserGraphql extends User {
         setName(user.get("name").toString());
         setAnilistUserId(Integer.parseInt(user.get("id").toString()));
     }
+
 
 }

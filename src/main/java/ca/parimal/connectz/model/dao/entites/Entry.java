@@ -1,7 +1,6 @@
-package ca.parimal.connectz.model.entities.dao;
+package ca.parimal.connectz.model.dao.entites;
 
 import jakarta.persistence.*;
-import org.json.simple.JSONObject;
 
 @Entity(name = "entry")
 public class Entry{
@@ -12,20 +11,20 @@ public class Entry{
     @ManyToOne
     @MapsId("userId")
     @JoinColumn(name = "user_id")
-    public User user;
+    private User user;
 
     @ManyToOne
     @MapsId("mediaId")
     @JoinColumn(name = "media_id")
-    public Media media;
+    private Media media;
 
 
     @JoinColumn(name = "score")
-    public Integer score;
+    private Integer score;
     //range 0-100
 
     @JoinColumn(name = "status")
-    public String status;
+    private String status;
 
     public Entry() {
         this.id = new EntryKey();
@@ -37,12 +36,7 @@ public class Entry{
         this.media = media;
     }
 
-    public Entry(JSONObject obj, User user) {
-        media = new Media((JSONObject) obj.get("media"));
-        score = Integer.parseInt(obj.get("score").toString());
-        status = obj.get("status").toString();
-        this.user = user;
-    }
+
     public Media getMedia() {
         return media;
     }

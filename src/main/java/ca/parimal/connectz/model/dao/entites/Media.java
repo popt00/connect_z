@@ -1,22 +1,19 @@
-package ca.parimal.connectz.model.entities.dao;
+package ca.parimal.connectz.model.dao.entites;
 
 import jakarta.persistence.*;
-import org.json.simple.JSONObject;
 
 @Entity(name = "media")
 public class Media {
-    public static final String QUERY="media{id, title {romaji}}";
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "media_id")
-    public Long mediaId;
+    private Long mediaId;
 
     @Column(name = "anilist_media_id")
-    public int anilistMediaId;
+    private int anilistMediaId;
 
     @Column(name = "title")
-    public String title;
+    private String title;
 
 //    @OneToMany(mappedBy = "media")
 //    Set<Entry> entries;
@@ -28,10 +25,7 @@ public class Media {
         this.title = title;
     }
 
-    public Media (JSONObject obj){
-        anilistMediaId = Integer.parseInt(obj.get("id").toString());
-        title = ((JSONObject)obj.get("title")).get("romaji").toString();
-    }
+
 
     @Override
     public String toString() {
