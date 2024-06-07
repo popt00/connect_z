@@ -3,22 +3,20 @@ package ca.parimal.connectz.model.entities;
 import jakarta.persistence.*;
 import org.json.simple.JSONObject;
 
-import java.util.Set;
-
 @Entity
 @Table(name="users")
 public class User {
     public static final String QUERY = "user {name,id}";
 
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
-    @Column(name = "data_id")
-    private Long dataId;
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
+    private Long userId;
 
-    @Column(name="user_id")
-    private Integer id;
+    @Column(name="anilist_user_id")
+    private Integer anilstUserId;
 
-    @Column(name="name")
+    @Column(name="username")
     private String name;
 
     @Column(name="password")
@@ -27,22 +25,36 @@ public class User {
     @Column(name="active")
     private Integer active;
 
-    @OneToMany(mappedBy = "user")
-    Set<Entry> entries;
+//    @OneToMany(mappedBy = "user")
+//    Set<Entry> entries;
 
     public User(JSONObject user){
         this.name = user.get("name").toString();
-        this.id = Integer.parseInt(user.get("id").toString());
+        this.anilstUserId = Integer.parseInt(user.get("id").toString());
     }
 
-    public User(String name, int id){
+    public User(int anilstUserId,String name){
         this.name = name;
-        this.id = id;
-        this.dataId = null;
+        this.anilstUserId = anilstUserId;
     }
 
     public User() {
+    }
 
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public Integer getAnilstUserId() {
+        return anilstUserId;
+    }
+
+    public void setAnilstUserId(Integer anilstUserId) {
+        this.anilstUserId = anilstUserId;
     }
 
     public String getName() {
@@ -51,14 +63,6 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getPassword() {
@@ -81,7 +85,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "name='" + name + '\'' +
-                ", id=" + id +
+                ", id=" + anilstUserId +
                 '}';
     }
 }

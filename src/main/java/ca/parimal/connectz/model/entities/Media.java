@@ -3,35 +3,50 @@ package ca.parimal.connectz.model.entities;
 import jakarta.persistence.*;
 import org.json.simple.JSONObject;
 
-import java.util.Set;
-
 @Entity(name = "media")
 public class Media {
     public static final String QUERY="media{id, title {romaji}}";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "media_id")
-    public int anilistId;
+    public Long mediaId;
+
+    @Column(name = "anilist_media_id")
+    public int anilistMediaId;
 
     @Column(name = "title")
     public String title;
 
-    @OneToMany(mappedBy = "media")
-    Set<Entry> entries;
+//    @OneToMany(mappedBy = "media")
+//    Set<Entry> entries;
 
     public Media(){}
+
+    public Media(int anilistMediaId, String title) {
+        this.anilistMediaId = anilistMediaId;
+        this.title = title;
+    }
+
     public Media (JSONObject obj){
-        anilistId = Integer.parseInt(obj.get("id").toString());
+        anilistMediaId = Integer.parseInt(obj.get("id").toString());
         title = ((JSONObject)obj.get("title")).get("romaji").toString();
     }
 
     @Override
     public String toString() {
         return "Media{" +
-                "anilistId=" + anilistId +
+                "anilistId=" + anilistMediaId +
                 ", title='" + title + '\'' +
                 '}';
+    }
+
+    public Long getMediaId() {
+        return mediaId;
+    }
+
+    public void setMediaId(Long mediaId) {
+        this.mediaId = mediaId;
     }
 
     public String getTitle() {
@@ -42,11 +57,11 @@ public class Media {
         this.title = title;
     }
 
-    public int getAnilistId() {
-        return anilistId;
+    public int getAnilistMediaId() {
+        return anilistMediaId;
     }
 
-    public void setAnilistId(int anilistId) {
-        this.anilistId = anilistId;
+    public void setAnilistMediaId(int anilistId) {
+        this.anilistMediaId = anilistId;
     }
 }

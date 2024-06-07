@@ -2,32 +2,44 @@ package ca.parimal.connectz.model.entities;
 
 import jakarta.persistence.*;
 
-//@Entity(name = "roles")
-public class Roles {
+@Entity(name = "roles")
+public class Role {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JoinColumn(name = "role_id")
+    private long id;
+
     @ManyToOne
-    @JoinColumn(name = "data_id")
-    User userDataId;
+    @JoinColumn(name = "user_id")
+    User userId;
 
     @Column(name = "role")
     String role;
 
-    public Roles(User userId, String role) {
-        this.userDataId = userId;
+    public Role(User userId, String role) {
+        this.userId = userId;
         this.role = role;
     }
 
-    public Roles() {
+    public Role() {
 
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public User getUserId() {
-        return userDataId;
+        return userId;
     }
 
     public void setUserId(User userId) {
-        this.userDataId = userId;
+        this.userId = userId;
     }
 
     public String getRole() {
@@ -41,7 +53,7 @@ public class Roles {
     @Override
     public String toString() {
         return "Roles{" +
-                "userId=" + userDataId +
+                "userId=" + userId +
                 ", role='" + role + '\'' +
                 '}';
     }

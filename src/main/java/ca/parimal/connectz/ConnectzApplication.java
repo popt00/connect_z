@@ -1,20 +1,20 @@
 package ca.parimal.connectz;
 
-import ca.parimal.connectz.controller.GraphqlFetch;
-import ca.parimal.connectz.controller.HomePage;
-import ca.parimal.connectz.controller.MediaListController;
+import ca.parimal.connectz.model.dao.EntryRepository;
 import ca.parimal.connectz.model.dao.MediaRepository;
-import ca.parimal.connectz.model.dao.UserDao;
+//import ca.parimal.connectz.model.dao.RolesRepository;
+import ca.parimal.connectz.model.dao.RolesRepository;
 import ca.parimal.connectz.model.dao.UserRepository;
+import ca.parimal.connectz.model.entities.Entry;
 import ca.parimal.connectz.model.entities.Media;
+//import ca.parimal.connectz.model.entities.Role;
+import ca.parimal.connectz.model.entities.Role;
 import ca.parimal.connectz.model.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
-import java.util.List;
 
 @SpringBootApplication
 public class ConnectzApplication {
@@ -26,21 +26,47 @@ public class ConnectzApplication {
 
 	@Bean
 	@Autowired
-	public CommandLineRunner commandLineRunner( MediaRepository mediaRepository) {
+	public CommandLineRunner commandLineRunner(UserRepository userRepository, MediaRepository mediaRepository, RolesRepository rolesRepository, EntryRepository entryRepository) {
 
 		return runner -> {
-			createOneUser( mediaRepository);
+//			createOneUser(userRepository);
+//			createOneMedia(mediaRepository);
+//			createOneRole(userRepository, rolesRepository);
+			createEntry(userRepository,mediaRepository,entryRepository);
 		};
 	}
 
-	private void createOneUser(MediaRepository mediaRepository) {
-//		List<User> users = userDAO.findAll();
-//		System.out.println(users);
-//		User newUser = new User("Parimal",29);
-//		userDAO.save(newUser);
+	private void createEntry(UserRepository userRepository, MediaRepository mediaRepository, EntryRepository entryRepository) {
+		if(userRepository.findAll().size()==0){
+			createOneUser(userRepository);
+		}
+		User user = userRepository.findAll().get(0);
+		if(mediaRepository.findAll().size()==0){
+			createOneUser(userRepository);
+		}
+		Media media = mediaRepository.findAll().get(0);
+		Entry entry = new Entry(user,media);
+		entry.setScore(90);
+		entry.setStatus("COMPLETED");
+		entryRepository.save(entry);
+	}
 
-		Media newMedia = new Media();
-		newMedia.setTitle("One Piece");
+	private void createOneRole(UserRepository userRepository, RolesRepository rolesRepository) {
+		if(userRepository.findAll().size()==0){
+			createOneUser(userRepository);
+		}
+		User user = userRepository.findAll().get(0);
+		Role role = new Role(user,"newone");
+		rolesRepository.save(role);
+	}
+
+	private void createOneUser(UserRepository userRepository) {
+		User newUser = new User(1233,"popt");
+		userRepository.save(newUser);
+	}
+
+	private void createOneMedia(MediaRepository mediaRepository) {
+		Media newMedia = new Media(2900,"One Piece rocks");
 		mediaRepository.save(newMedia);
 	}
 

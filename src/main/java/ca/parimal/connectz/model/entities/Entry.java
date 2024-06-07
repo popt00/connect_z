@@ -30,7 +30,11 @@ public class Entry{
     public Entry() {
     }
 
-    public Entry(Media media) {}
+    public Entry(User user, Media media) {
+        this.user = user;
+        this.media = media;
+    }
+
     public Entry(JSONObject obj, User user) {
         media = new Media((JSONObject) obj.get("media"));
         score = Integer.parseInt(obj.get("score").toString());
