@@ -1,16 +1,14 @@
 package ca.parimal.connectz.controller;
 
-import ca.parimal.connectz.model.entities.MediaListCollection;
-import ca.parimal.connectz.model.entities.User;
+import ca.parimal.connectz.model.entities.graphql.MediaListCollection;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.io.IOException;
-import java.util.List;
 
-//@Controller
+@Controller
 public class HomePage {
 
 

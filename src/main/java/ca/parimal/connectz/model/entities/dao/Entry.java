@@ -1,4 +1,4 @@
-package ca.parimal.connectz.model.entities;
+package ca.parimal.connectz.model.entities.dao;
 
 import jakarta.persistence.*;
 import org.json.simple.JSONObject;
@@ -28,9 +28,11 @@ public class Entry{
     public String status;
 
     public Entry() {
+        this.id = new EntryKey();
     }
 
     public Entry(User user, Media media) {
+        this.id= new EntryKey();
         this.user = user;
         this.media = media;
     }

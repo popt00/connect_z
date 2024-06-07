@@ -5,11 +5,11 @@ import ca.parimal.connectz.model.dao.MediaRepository;
 //import ca.parimal.connectz.model.dao.RolesRepository;
 import ca.parimal.connectz.model.dao.RolesRepository;
 import ca.parimal.connectz.model.dao.UserRepository;
-import ca.parimal.connectz.model.entities.Entry;
-import ca.parimal.connectz.model.entities.Media;
-//import ca.parimal.connectz.model.entities.Role;
-import ca.parimal.connectz.model.entities.Role;
-import ca.parimal.connectz.model.entities.User;
+import ca.parimal.connectz.model.entities.dao.Entry;
+import ca.parimal.connectz.model.entities.dao.Media;
+//import ca.parimal.connectz.model.entities.dao.Role;
+import ca.parimal.connectz.model.entities.dao.Role;
+import ca.parimal.connectz.model.entities.dao.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -32,7 +32,7 @@ public class ConnectzApplication {
 //			createOneUser(userRepository);
 //			createOneMedia(mediaRepository);
 //			createOneRole(userRepository, rolesRepository);
-			createEntry(userRepository,mediaRepository,entryRepository);
+//			createEntry(userRepository,mediaRepository,entryRepository);
 		};
 	}
 

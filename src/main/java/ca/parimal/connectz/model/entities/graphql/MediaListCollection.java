@@ -1,10 +1,13 @@
-package ca.parimal.connectz.model.entities;
+package ca.parimal.connectz.model.entities.graphql;
+import ca.parimal.connectz.model.entities.dao.Entry;
+import ca.parimal.connectz.model.entities.dao.Media;
+import ca.parimal.connectz.model.entities.dao.User;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 public class MediaListCollection {
-    public static final String QUERY = "entries { "+Media.QUERY+"score(format: POINT_100),status}";
+    public static final String QUERY = "entries { "+ Media.QUERY+"score(format: POINT_100),status}";
     public User user;
     public ArrayList<Entry> entries;
 

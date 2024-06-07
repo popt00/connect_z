@@ -1,4 +1,4 @@
-package ca.parimal.connectz.model.entities;
+package ca.parimal.connectz.model.entities.dao;
 
 import jakarta.persistence.*;
 import org.json.simple.JSONObject;
@@ -7,6 +7,11 @@ import org.json.simple.JSONObject;
 @Table(name="users")
 public class User {
     public static final String QUERY = "user {name,id}";
+    public User(JSONObject user){
+        this.name = user.get("name").toString();
+        this.anilistUserId = Integer.parseInt(user.get("id").toString());
+    }
+
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -14,7 +19,7 @@ public class User {
     private Long userId;
 
     @Column(name="anilist_user_id")
-    private Integer anilstUserId;
+    private Integer anilistUserId;
 
     @Column(name="username")
     private String name;
@@ -28,14 +33,10 @@ public class User {
 //    @OneToMany(mappedBy = "user")
 //    Set<Entry> entries;
 
-    public User(JSONObject user){
-        this.name = user.get("name").toString();
-        this.anilstUserId = Integer.parseInt(user.get("id").toString());
-    }
 
-    public User(int anilstUserId,String name){
+    public User(int anilistUserId, String name){
         this.name = name;
-        this.anilstUserId = anilstUserId;
+        this.anilistUserId = anilistUserId;
     }
 
     public User() {
@@ -49,12 +50,12 @@ public class User {
         this.userId = userId;
     }
 
-    public Integer getAnilstUserId() {
-        return anilstUserId;
+    public Integer getAnilistUserId() {
+        return anilistUserId;
     }
 
-    public void setAnilstUserId(Integer anilstUserId) {
-        this.anilstUserId = anilstUserId;
+    public void setAnilistUserId(Integer anilstUserId) {
+        this.anilistUserId = anilstUserId;
     }
 
     public String getName() {
@@ -85,7 +86,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "name='" + name + '\'' +
-                ", id=" + anilstUserId +
+                ", id=" + anilistUserId +
                 '}';
     }
 }

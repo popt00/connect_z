@@ -1,4 +1,4 @@
-package ca.parimal.connectz.model.entities;
+package ca.parimal.connectz.model.entities.dao;
 
 import jakarta.persistence.*;
 import org.json.simple.JSONObject;
