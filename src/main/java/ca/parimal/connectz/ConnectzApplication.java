@@ -42,7 +42,7 @@ public class ConnectzApplication {
 		}
 		User user = userRepository.findAll().get(0);
 		if(mediaRepository.findAll().size()==0){
-			createOneUser(userRepository);
+			createOneMedia(mediaRepository);
 		}
 		Media media = mediaRepository.findAll().get(0);
 		Entry entry = new Entry(user,media);

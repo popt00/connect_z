@@ -4,8 +4,8 @@ USE `connectz`;
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
-                         `user_id`   int NOT NULL AUTO_INCREMENT,
-                         `anilist_user_id` 	int			NOT NULL,
+                         `user_id`   BIGINT NOT NULL AUTO_INCREMENT,
+                         `anilist_user_id` 	BIGINT			NOT NULL,
                          `username`		varchar(50)	NOT NULL,
                          `password`	varchar(50),
                          `active`    int         DEFAULT 1,
@@ -14,9 +14,10 @@ CREATE TABLE `users` (
 
 DROP TABLE IF EXISTS `roles`;
 CREATE TABLE `roles` (
-                        `role_id`   int         NOT NULL AUTO_INCREMENT,
-                         `user_id` 	int			NOT NULL,
+                        `role_id`   BIGINT         NOT NULL AUTO_INCREMENT,
+                         `user_id` 	BIGINT			NOT NULL,
                          `role`		varchar(50)	NOT NULL,
+                        PRIMARY KEY(`role_id`),
                          UNIQUE KEY `authorities_idx_1` (`user_id`,`role`),
                          CONSTRAINT `authorities_idfk_1`
                              FOREIGN KEY (`user_id`)
@@ -26,16 +27,16 @@ CREATE TABLE `roles` (
 
 DROP TABLE IF EXISTS `media`;
 CREATE TABLE `media`(
-                        `media_id`	int NOT NULL AUTO_INCREMENT,
-                        `anilist_media_id` int not null,
+                        `media_id`	BIGINT NOT NULL AUTO_INCREMENT,
+                        `anilist_media_id` BIGINT not null,
                         `title`		varchar(50) default "okay",
                         PRIMARY KEY(`media_id`)
 ) Engine=InnoDB DEFAULT CHARSET=latin1;
 
 DROP TABLE IF EXISTS `entry`;
 CREATE TABLE `entry` (
-                         `user_id` 	int			NOT NULL,
-                         `media_id`	int			NOT NULL,
+                         `user_id` 	BIGINT			NOT NULL,
+                         `media_id`	BIGINT			NOT NULL,
                          `score`		int,
                          `status`	varchar(20)	NOT NULL,
                          PRIMARY KEY `entries_idx_1` (`user_id`,`media_id`),
