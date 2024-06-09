@@ -2,12 +2,11 @@ package ca.parimal.connectz.model.dao.entites;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity
 @Table(name="users")
 public class User {
-
-
-
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
@@ -25,8 +24,8 @@ public class User {
     @Column(name="active")
     private Integer active;
 
-//    @OneToMany(mappedBy = "user")
-//    Set<Entry> entries;
+    @OneToMany(mappedBy = "user")
+    Set<Entry> entries;
 
 
     public User(int anilistUserId, String name){
