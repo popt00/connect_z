@@ -1,16 +1,15 @@
-package ca.parimal.connectz.model.graphql;
-import ca.parimal.connectz.model.dao.entites.Entry;
-import ca.parimal.connectz.model.dao.entites.User;
-import ca.parimal.connectz.model.graphql.entities.EntryGraphQl;
-import ca.parimal.connectz.model.graphql.entities.MediaGraphQl;
+package ca.parimal.connectz.controller.dto;
+import ca.parimal.connectz.controller.dto.entities.EntryGraphQl;
+import ca.parimal.connectz.controller.dto.entities.MediaGraphQl;
+import ca.parimal.connectz.controller.dto.entities.UserGraphql;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 public class UserEntryCollection {
     public static final String QUERY = "entries { "+ MediaGraphQl.QUERY+"score(format: POINT_100),status}";
-    public User user;
-    public ArrayList<Entry> entries;
+    public UserGraphql user;
+    public ArrayList<EntryGraphQl> entries;
 
     public UserEntryCollection() {}
     public UserEntryCollection(JSONArray obj) {
@@ -20,28 +19,28 @@ public class UserEntryCollection {
              JSONArray  entriesJSONObject = (JSONArray) ((JSONObject)obj.get(i)).get("entries");
              for(int j=0;j<entriesJSONObject.size();j++) {
                  //System.out.println(entriesJSONObject.get(j).toString());
-                 Entry entryObj = new EntryGraphQl((JSONObject) entriesJSONObject.get(j),user);
+                 EntryGraphQl entryObj = new EntryGraphQl((JSONObject) entriesJSONObject.get(j),user);
                  entries.add(entryObj);
              }
          }
     }
-    public UserEntryCollection(JSONArray obj, User user) {
+    public UserEntryCollection(JSONArray obj, UserGraphql user) {
         this(obj);
         this.user = user;
     }
-    public ArrayList<Entry> getEntries() {
+    public ArrayList<EntryGraphQl> getEntries() {
         return entries;
     }
 
-    public void setEntries(ArrayList<Entry> entries) {
+    public void setEntries(ArrayList<EntryGraphQl> entries) {
         this.entries = entries;
     }
 
-    public User getUser() {
+    public UserGraphql getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserGraphql user) {
         this.user = user;
     }
 

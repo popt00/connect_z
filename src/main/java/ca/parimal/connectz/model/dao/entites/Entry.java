@@ -8,12 +8,12 @@ public class Entry{
     @EmbeddedId
     EntryKey id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @MapsId("userId")
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @MapsId("mediaId")
     @JoinColumn(name = "media_id")
     private Media media;
@@ -36,6 +36,13 @@ public class Entry{
         this.media = media;
     }
 
+    public EntryKey getId() {
+        return id;
+    }
+
+    public void setId(EntryKey id) {
+        this.id = id;
+    }
 
     public Media getMedia() {
         return media;

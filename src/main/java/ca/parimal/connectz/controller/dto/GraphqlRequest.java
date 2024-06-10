@@ -1,4 +1,4 @@
-package ca.parimal.connectz.model.graphql;
+package ca.parimal.connectz.controller.dto;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;

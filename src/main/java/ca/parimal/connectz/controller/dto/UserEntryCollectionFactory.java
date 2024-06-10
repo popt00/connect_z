@@ -1,14 +1,14 @@
-package ca.parimal.connectz.model.graphql;
+package ca.parimal.connectz.controller.dto;
 
+import ca.parimal.connectz.controller.dto.entities.UserGraphql;
 import ca.parimal.connectz.model.dao.entites.User;
-import ca.parimal.connectz.model.graphql.entities.UserGraphql;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public class UserEntryCollectionFactory {
     public UserEntryCollection build(String userName){
         JSONObject mediaListObject = getMediaObject(userName);
-        User user = new UserGraphql((JSONObject) mediaListObject.get("user"));
+        UserGraphql user = new UserGraphql((JSONObject) mediaListObject.get("user"));
         UserEntryCollection userEntryCollection = new UserEntryCollection((JSONArray) mediaListObject.get("lists"),user);
         return userEntryCollection;
     }

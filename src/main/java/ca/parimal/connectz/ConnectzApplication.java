@@ -10,6 +10,7 @@ import ca.parimal.connectz.model.dao.entites.Media;
 //import ca.parimal.connectz.model.dao.entites.Role;
 import ca.parimal.connectz.model.dao.entites.Role;
 import ca.parimal.connectz.model.dao.entites.User;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
