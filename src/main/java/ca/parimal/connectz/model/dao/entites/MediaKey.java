@@ -9,18 +9,18 @@ import java.util.Objects;
 @Embeddable
 public class MediaKey implements Serializable {
     @Column(name = "media_id")
-    private Long mediaId;
+    private Integer mediaId;
 
-    public MediaKey(Long mediaId) {
+    public MediaKey(Integer mediaId) {
         this.mediaId = mediaId;
     }
     public MediaKey() {}
 
-    public Long getMediaId() {
+    public Integer getMediaId() {
         return mediaId;
     }
 
-    public void setMediaId(Long mediaId) {
+    public void setMediaId(Integer mediaId) {
         this.mediaId = mediaId;
     }
 

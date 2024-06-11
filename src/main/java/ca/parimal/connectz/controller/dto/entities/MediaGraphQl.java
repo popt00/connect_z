@@ -21,19 +21,19 @@ public class MediaGraphQl {
         }
     }
 
-    private int anilistMediaId;
+    private Integer anilistMediaId;
     private String title;
 
-    public MediaGraphQl(int anilistMediaId, String title) {
+    public MediaGraphQl(Integer anilistMediaId, String title) {
         this.anilistMediaId = anilistMediaId;
         this.title = title;
     }
 
-    public int getAnilistMediaId() {
+    public Integer getAnilistMediaId() {
         return anilistMediaId;
     }
 
-    public void setAnilistMediaId(int anilistMediaId) {
+    public void setAnilistMediaId(Integer anilistMediaId) {
         this.anilistMediaId = anilistMediaId;
     }
 

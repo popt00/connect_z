@@ -4,12 +4,13 @@ import jakarta.persistence.*;
 
 @Entity(name = "media")
 public class Media {
-    @EmbeddedId
-    private MediaKey id;
+//    @EmbeddedId
+//    private MediaKey id;
 
+    @Id
     @Column(name = "media_id")
-    @MapsId("mediaId")
-    private int mediaId;
+//    @MapsId("mediaId")
+    private Integer mediaId;
 
     @Column(name = "title")
     private String title;
@@ -21,24 +22,24 @@ public class Media {
     public Media() {
     }
 
-    public Media(int mediaId, String title) {
+    public Media(Integer mediaId, String title) {
         this.mediaId = mediaId;
         this.title = title;
     }
 
-    public MediaKey getId() {
-        return id;
-    }
+//    public MediaKey getId() {
+//        return id;
+//    }
+//
+//    public void setId(MediaKey id) {
+//        this.id = id;
+//    }
 
-    public void setId(MediaKey id) {
-        this.id = id;
-    }
-
-    public int getMediaId() {
+    public Integer getMediaId() {
         return mediaId;
     }
 
-    public void setMediaId(int anilistMediaId) {
+    public void setMediaId(Integer anilistMediaId) {
         this.mediaId = anilistMediaId;
     }
 

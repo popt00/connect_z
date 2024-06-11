@@ -47,6 +47,7 @@ public class UserEntryServiceImpl implements IUserEntryService{
             }
             catch (Exception e){
                 System.out.println("\n\n\n\n\n       ERRRRRRRRRRRRRRRO: "+media);
+                System.out.println(e.getMessage());
             }
         }
         System.out.println("entries saved");
@@ -54,6 +55,7 @@ public class UserEntryServiceImpl implements IUserEntryService{
 
     private Media getMedia(MediaGraphQl mediaGraphQl) {
         Media media = new Media();
+//        Long mediaId= mediaGraphQl.getAnilistMediaId();
         media.setMediaId(mediaGraphQl.getAnilistMediaId());
         media.setTitle(mediaGraphQl.getTitle());
         return media;

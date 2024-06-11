@@ -13,11 +13,11 @@ public class EntryKey implements Serializable {
     private Long userId;
 
     @Column(name = "media_id")
-    private Long mediaId;
+    private Integer mediaId;
 
     public EntryKey() {}
 
-    public EntryKey(Long userId, Long mediaId) {
+    public EntryKey(Long userId, Integer mediaId) {
         this.userId = userId;
         this.mediaId = mediaId;
     }
@@ -30,11 +30,11 @@ public class EntryKey implements Serializable {
         this.userId = userId;
     }
 
-    public Long getMediaId() {
+    public Integer getMediaId() {
         return mediaId;
     }
 
-    public void setMediaId(Long mediaId) {
+    public void setMediaId(Integer mediaId) {
         this.mediaId = mediaId;
     }
 
@@ -56,7 +56,7 @@ public class EntryKey implements Serializable {
         );
         if(objEffectiveClass != thisEffectiveClass)return false;
         EntryKey o = (EntryKey) obj;
-        if(this.mediaId == o.getMediaId() &&  this.userId== o.getMediaId())return true;
+        if(this.mediaId == o.getMediaId() &&  this.userId== o.getUserId())return true;
         return false;
     }
 }
