@@ -4,13 +4,12 @@ import jakarta.persistence.*;
 
 @Entity(name = "media")
 public class Media {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "media_id")
-    private Long mediaId;
+    @EmbeddedId
+    private MediaKey id;
 
-    @Column(name = "anilist_media_id")
-    private int anilistMediaId;
+    @Column(name = "media_id")
+    @MapsId("mediaId")
+    private int mediaId;
 
     @Column(name = "title")
     private String title;
@@ -18,29 +17,29 @@ public class Media {
 //    @OneToMany(mappedBy = "media")
 //    Set<Entry> entries;
 
-    public Media(){}
 
-    public Media(int anilistMediaId, String title) {
-        this.anilistMediaId = anilistMediaId;
+    public Media() {
+    }
+
+    public Media(int mediaId, String title) {
+        this.mediaId = mediaId;
         this.title = title;
     }
 
-
-
-    @Override
-    public String toString() {
-        return "Media{" +
-                "anilistId=" + anilistMediaId +
-                ", title='" + title + '\'' +
-                '}';
+    public MediaKey getId() {
+        return id;
     }
 
-    public Long getMediaId() {
+    public void setId(MediaKey id) {
+        this.id = id;
+    }
+
+    public int getMediaId() {
         return mediaId;
     }
 
-    public void setMediaId(Long mediaId) {
-        this.mediaId = mediaId;
+    public void setMediaId(int anilistMediaId) {
+        this.mediaId = anilistMediaId;
     }
 
     public String getTitle() {
@@ -51,11 +50,11 @@ public class Media {
         this.title = title;
     }
 
-    public int getAnilistMediaId() {
-        return anilistMediaId;
-    }
-
-    public void setAnilistMediaId(int anilistId) {
-        this.anilistMediaId = anilistId;
+    @Override
+    public String toString() {
+        return "Media{" +
+                "anilistId=" + mediaId +
+                ", title='" + title + '\'' +
+                '}';
     }
 }

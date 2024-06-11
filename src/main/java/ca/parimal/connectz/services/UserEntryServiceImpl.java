@@ -10,7 +10,6 @@ import ca.parimal.connectz.model.dao.UserRepository;
 import ca.parimal.connectz.model.dao.entites.Entry;
 import ca.parimal.connectz.model.dao.entites.Media;
 import ca.parimal.connectz.model.dao.entites.User;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,7 +54,7 @@ public class UserEntryServiceImpl implements IUserEntryService{
 
     private Media getMedia(MediaGraphQl mediaGraphQl) {
         Media media = new Media();
-        media.setAnilistMediaId(mediaGraphQl.getAnilistMediaId());
+        media.setMediaId(mediaGraphQl.getAnilistMediaId());
         media.setTitle(mediaGraphQl.getTitle());
         return media;
     }
