@@ -28,12 +28,11 @@ CREATE TABLE `roles` (
 
 DROP TABLE IF EXISTS `media`;
 CREATE TABLE `media`(
-                        `media_id`	BIGINT NOT NULL AUTO_INCREMENT,
-                        `anilist_media_id` BIGINT not null,
+                        `media_id` BIGINT not null,
                         `title`		varchar(100) default "okay",
-                        PRIMARY KEY(`media_id`),
-                        UNIQUE KEY(`anilist_media_id`)
+                        PRIMARY KEY(`media_id`)
 ) Engine=InnoDB DEFAULT CHARSET=latin1;
+
 
 DROP TABLE IF EXISTS `entry`;
 CREATE TABLE `entry` (

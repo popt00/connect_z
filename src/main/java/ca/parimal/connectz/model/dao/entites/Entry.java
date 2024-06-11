@@ -31,6 +31,7 @@ public class Entry{
     }
 
     public Entry(User user) {
+        this.id=new EntryKey();
         this.user = user;
     }
 
