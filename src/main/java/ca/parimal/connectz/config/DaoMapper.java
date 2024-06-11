@@ -19,7 +19,6 @@ public class DaoMapper {
     }
     public User convert(UserGraphql userGraphql){
         User map = modelMapper.map(userGraphql, User.class);
-
         return map;
     }
     public Media convert(MediaGraphQl mediaGraphQl){

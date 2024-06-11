@@ -30,6 +30,10 @@ public class Entry{
         this.id = new EntryKey();
     }
 
+    public Entry(User user) {
+        this.user = user;
+    }
+
     public Entry(User user, Media media) {
         this.id= new EntryKey();
         this.user = user;
