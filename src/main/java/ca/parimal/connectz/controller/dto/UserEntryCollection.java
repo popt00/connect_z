@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class UserEntryCollection {
+    //this is for entr collection
     public static final String QUERY = "entries { "+ MediaGraphQl.QUERY+"score(format: POINT_100),status}";
     public UserGraphql user;
     public ArrayList<EntryGraphQl> entries;
@@ -18,6 +19,7 @@ public class UserEntryCollection {
     public UserEntryCollection(JSONArray obj) {
         this.entries = new ArrayList<>();
         System.out.println(obj.toString());
+        //ensurng unique mediaIds
         Set<Integer> mediaIds = new HashSet<>();
          for (int i=0;i< obj.size();i++) {
              JSONArray  entriesJSONObject = (JSONArray) ((JSONObject)obj.get(i)).get("entries");

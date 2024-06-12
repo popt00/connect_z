@@ -7,7 +7,7 @@
 <body>
     <div>
         <h2>
-            <a th:text = ${userData.user.name} th:href = "'https://anilist.co/user/'+${userData.user.anilistUserId}" target="_blank" >
+            <a th:text = ${user.username} th:href = "'https://anilist.co/user/'+${user.userId}" target="_blank" >
         </h2>
     </div>
     <div>
@@ -17,9 +17,9 @@
                 <td>Rating</td>
                 <td>status</td>
             </tr>
-            <tr th:each = "tempRow: ${userData.entries}">
+            <tr th:each = "tempRow: ${user.entries}">
                 <td>
-                    <a th:text = ${tempRow.media.title} th:href = "'https://anilist.co/anime/'+${tempRow.media.anilistMediaId}" target="_blank" >
+                    <a th:text = ${tempRow.media.title} th:href = "'https://anilist.co/anime/'+${tempRow.media.mediaId}" target="_blank" >
                 </td>
                 <td th:text = ${tempRow.score}>
                 <td th:text = ${tempRow.status}>

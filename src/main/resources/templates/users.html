@@ -7,15 +7,20 @@
 <body>
     <div>
         <div>
+            <form action="users" method="post">
+
+            </form>
+        </div>
+        <div>
             <table>
                 <tr>
                     <th>Name</th>
                     <th>id</th>
                     <th>active</th>
                 </tr>
-                <tr th:each ="tempRow : ${user}">
-                    <td th:text = "${tempRow.name}"></td>
-                    <td th:text = "${tempRow.id}"></td>
+                <tr th:each ="tempRow : ${users}">
+                    <td th:text = "${tempRow.username}"></td>
+                    <td th:text = "${tempRow.userId}"></td>
                     <td th:text = "${tempRow.active}"></td>
                 </tr>
             </table>

@@ -1,7 +1,4 @@
 package ca.parimal.connectz.controller.dto.entities;
-
-import ca.parimal.connectz.model.dao.entites.Media;
-import jakarta.persistence.Column;
 import org.json.simple.JSONObject;
 
 import java.nio.charset.StandardCharsets;
@@ -12,17 +9,10 @@ public class MediaGraphQl {
         setAnilistMediaId(Integer.parseInt(obj.get("id").toString()));
         JSONObject title =(JSONObject)obj.get("title");
         if(title.get("english")!=null){
-            String engTitle = title.get("english").toString();
-            byte[] encodedEngTitle =engTitle.getBytes(StandardCharsets.UTF_8);
-
-//            if(engTitle.length()>64){engTitle=engTitle.substring(0,64);}
-            setTitle(new String(encodedEngTitle, StandardCharsets.UTF_8));
+            setTitle(title.get("english").toString());
         }
         else{
-            String romajiTitle = title.get("romaji").toString();
-            byte[] encodedRomajiTitle =romajiTitle.getBytes(StandardCharsets.UTF_8);
-//            if(romajiTitle.length()>64){romajiTitle=romajiTitle.substring(0,64);}
-            setTitle(new String(encodedRomajiTitle, StandardCharsets.UTF_8));
+            setTitle(title.get("romaji").toString());
         }
     }
 

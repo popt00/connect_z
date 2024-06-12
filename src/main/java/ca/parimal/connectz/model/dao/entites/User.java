@@ -2,9 +2,7 @@ package ca.parimal.connectz.model.dao.entites;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name="users")
@@ -18,7 +16,7 @@ public class User {
     private Integer userId;
 
     @Column(name="username")
-    private String name;
+    private String username;
 
     @Column(name="password")
     private String password;
@@ -39,8 +37,8 @@ public class User {
 //        this.roles = roles;
 //    }
 
-    public User(int userId, String name){
-        this.name = name;
+    public User(int userId, String username){
+        this.username = username;
         this.userId = userId;
     }
 
@@ -73,12 +71,12 @@ public class User {
         this.userId = anilstUserId;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String name) {
+        this.username = name;
     }
 
     public String getPassword() {
@@ -100,7 +98,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "name='" + name + '\'' +
+                "name='" + username + '\'' +
                 ", id=" + userId +
                 '}';
     }

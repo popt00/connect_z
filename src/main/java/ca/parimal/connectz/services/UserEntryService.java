@@ -1,9 +1,10 @@
 package ca.parimal.connectz.services;
 
 import ca.parimal.connectz.controller.dto.UserEntryCollection;
-import org.springframework.stereotype.Service;
+import ca.parimal.connectz.model.dao.entites.User;
 
 
-public interface IUserEntryService {
+public interface UserEntryService {
     void save(UserEntryCollection userEntryCollection);
+    User findByUsername(String username);
 }

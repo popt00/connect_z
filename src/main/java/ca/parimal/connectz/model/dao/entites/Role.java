@@ -1,7 +1,6 @@
 package ca.parimal.connectz.model.dao.entites;
 
 import jakarta.persistence.*;
-import org.modelmapper.internal.bytebuddy.implementation.bind.annotation.Default;
 
 @Entity(name = "roles")
 public class Role {

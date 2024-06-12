@@ -1,47 +1,48 @@
 package ca.parimal.connectz.controller;
-
-import ca.parimal.connectz.config.DaoMapper;
-import ca.parimal.connectz.model.dao.EntryRepository;
-import ca.parimal.connectz.model.dao.UserRepository;
-import ca.parimal.connectz.model.dao.entites.Entry;
-import ca.parimal.connectz.model.dao.entites.User;
 import ca.parimal.connectz.controller.dto.UserEntryCollection;
 import ca.parimal.connectz.controller.dto.UserEntryCollectionFactory;
-import ca.parimal.connectz.services.IUserEntryService;
-import org.modelmapper.ModelMapper;
+import ca.parimal.connectz.model.dao.entites.User;
+import ca.parimal.connectz.services.UserEntryService;
+import ca.parimal.connectz.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class HomePage {
     @Autowired
-    IUserEntryService userEntryService;
-
+    UserEntryService userEntryService;
     @Autowired
-    private final DaoMapper daoMapper;
+    UserService userService;
 
-    public HomePage(DaoMapper daoMapper) {
-        this.daoMapper = daoMapper;
-    }
-
-    @GetMapping("/getUser/{username}")
+    @GetMapping("/users/{username}")
     public String getUser(@PathVariable String username, Model model) throws IOException {
-        //System.out.println(username);
-        UserEntryCollection userEntryCollection = new UserEntryCollectionFactory().build(username);
-        if(userEntryCollection==null)return "errorpage";
-        userEntryService.save(userEntryCollection);
-//        System.out.println(userData.getSeriesRatingData());
-        model.addAttribute("userData", userEntryCollection);
+        User user = userService.findByUsername(username);
+        if (user == null) {
+            return "error";
+        }
+        model.addAttribute("user", user);
         return "home";
     }
-    
-//    private ArrayList<Entry> convertToDao
-
+    @GetMapping("/users")
+    public String getAllUsers(Model model) throws IOException {
+        List<User> users =userService.findAll();
+        model.addAttribute("users", users);
+        return "users";
+    }
+    @PostMapping("/users")
+    public String addUser(@ModelAttribute("username") String username){
+        UserEntryCollection userEntryCollection = new UserEntryCollectionFactory().build(username);
+        if(userEntryCollection==null)return "error";
+        userEntryService.save(userEntryCollection);
+        return "redirect:users";
+    }
 
 }

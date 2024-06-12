@@ -1,4 +1,4 @@
-package ca.parimal.connectz.services;
+package ca.parimal.connectz.services.impl;
 
 import ca.parimal.connectz.controller.dto.UserEntryCollection;
 import ca.parimal.connectz.controller.dto.entities.EntryGraphQl;
@@ -12,6 +12,7 @@ import ca.parimal.connectz.model.dao.entites.Entry;
 import ca.parimal.connectz.model.dao.entites.Media;
 import ca.parimal.connectz.model.dao.entites.Role;
 import ca.parimal.connectz.model.dao.entites.User;
+import ca.parimal.connectz.services.UserEntryService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UserEntryServiceImpl implements IUserEntryService{
+public class UserEntryServiceImpl implements UserEntryService {
 
     UserRepository userRepository;
     EntryRepository entryRepository;
@@ -40,25 +41,25 @@ public class UserEntryServiceImpl implements IUserEntryService{
         if(userEntryCollection == null) return;
         User user = getUser(userEntryCollection.getUser(),userEntryCollection.getEntries());
         Long userId=Long.valueOf(user.getUserId());
-//        if(userRepository.existsById(userId)) {
-//            List<Role> userRoles= userRepository.findById(userId).get().getRoles();
-//            userRepository.delete(user);
-//            user.setRoles(userRoles);
-//        }
         System.out.println(user);
-        userRepository.save(user);
         if(!userRepository.existsById(userId)){
             Role role = new Role(user,"ROLE_USER");
             rolesRepository.save(role);
         }
+        userRepository.save(user);
         entryRepository.saveAll(user.getEntries());
         System.out.println("entries saved");
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
 
     private User getUser(UserGraphql userGraphql, ArrayList<EntryGraphQl> entryGraphQls) {
         User user = new User();
-        user.setName(userGraphql.getName());
+        user.setUsername(userGraphql.getUsername());
         user.setUserId(userGraphql.getAnilistUserId());
         user.setEntries(getEntries(user,entryGraphQls));
         return user;

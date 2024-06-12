@@ -2,15 +2,12 @@ package ca.parimal.connectz;
 
 import ca.parimal.connectz.model.dao.EntryRepository;
 import ca.parimal.connectz.model.dao.MediaRepository;
-//import ca.parimal.connectz.model.dao.RolesRepository;
 import ca.parimal.connectz.model.dao.RolesRepository;
 import ca.parimal.connectz.model.dao.UserRepository;
 import ca.parimal.connectz.model.dao.entites.Entry;
 import ca.parimal.connectz.model.dao.entites.Media;
-//import ca.parimal.connectz.model.dao.entites.Role;
 import ca.parimal.connectz.model.dao.entites.Role;
 import ca.parimal.connectz.model.dao.entites.User;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -38,11 +35,11 @@ public class ConnectzApplication {
 	}
 
 	private void createEntry(UserRepository userRepository, MediaRepository mediaRepository, EntryRepository entryRepository) {
-		if(userRepository.findAll().size()==0){
+		if(userRepository.findAll().isEmpty()){
 			createOneUser(userRepository);
 		}
 		User user = userRepository.findAll().get(0);
-		if(mediaRepository.findAll().size()==0){
+		if(mediaRepository.findAll().isEmpty()){
 			createOneMedia(mediaRepository);
 		}
 		Media media = mediaRepository.findAll().get(0);
@@ -53,7 +50,7 @@ public class ConnectzApplication {
 	}
 
 	private void createOneRole(UserRepository userRepository, RolesRepository rolesRepository) {
-		if(userRepository.findAll().size()==0){
+		if(userRepository.findAll().isEmpty()){
 			createOneUser(userRepository);
 		}
 		User user = userRepository.findAll().get(0);
