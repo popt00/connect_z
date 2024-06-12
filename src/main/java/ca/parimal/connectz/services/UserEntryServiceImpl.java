@@ -39,8 +39,11 @@ public class UserEntryServiceImpl implements IUserEntryService{
     public void save(UserEntryCollection userEntryCollection) {
         if(userEntryCollection == null) return;
         User user = getUser(userEntryCollection.getUser(),userEntryCollection.getEntries());
-        if(userRepository.existsById(Long.valueOf(user.getUserId()))) return;{
+        Long userId=Long.valueOf(user.getUserId());
+        if(userRepository.existsById(userId)) {
+            List<Role> userRoles= userRepository.findById(userId).get().getRoles();
             userRepository.delete(user);
+            user.setRoles(userRoles);
         }
         Role role = new Role(user,"ROLE_USER");
         System.out.println(user);
