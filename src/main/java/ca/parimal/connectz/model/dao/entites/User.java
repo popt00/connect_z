@@ -7,13 +7,13 @@ import java.util.Set;
 @Entity
 @Table(name="users")
 public class User {
-    @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    private Long userId;
+//    @EmbeddedId
+//    UserKey id;
 
-    @Column(name="anilist_user_id")
-    private Integer anilistUserId;
+    @Id
+    @Column(name="user_id")
+//    @MapsId(name = "userId")
+    private Integer userId;
 
     @Column(name="username")
     private String name;
@@ -28,28 +28,36 @@ public class User {
     Set<Entry> entries;
 
 
-    public User(int anilistUserId, String name){
+    public User(int userId, String name){
         this.name = name;
-        this.anilistUserId = anilistUserId;
+        this.userId = userId;
     }
 
     public User() {
     }
 
-    public Long getUserId() {
+//    public UserKey getId() {
+//        return id;
+//    }
+//
+//    public void setId(UserKey id) {
+//        this.id = id;
+//    }
+
+    public Set<Entry> getEntries() {
+        return entries;
+    }
+
+    public void setEntries(Set<Entry> entries) {
+        this.entries = entries;
+    }
+
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Integer getAnilistUserId() {
-        return anilistUserId;
-    }
-
-    public void setAnilistUserId(Integer anilstUserId) {
-        this.anilistUserId = anilstUserId;
+    public void setUserId(Integer anilstUserId) {
+        this.userId = anilstUserId;
     }
 
     public String getName() {
@@ -80,7 +88,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "name='" + name + '\'' +
-                ", id=" + anilistUserId +
+                ", id=" + userId +
                 '}';
     }
 }

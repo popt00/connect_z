@@ -6,6 +6,9 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
 public class UserEntryCollection {
     public static final String QUERY = "entries { "+ MediaGraphQl.QUERY+"score(format: POINT_100),status}";
     public UserGraphql user;
@@ -15,12 +18,17 @@ public class UserEntryCollection {
     public UserEntryCollection(JSONArray obj) {
         this.entries = new ArrayList<>();
         System.out.println(obj.toString());
+        Set<Integer> mediaIds = new HashSet<>();
          for (int i=0;i< obj.size();i++) {
              JSONArray  entriesJSONObject = (JSONArray) ((JSONObject)obj.get(i)).get("entries");
              for(int j=0;j<entriesJSONObject.size();j++) {
                  //System.out.println(entriesJSONObject.get(j).toString());
                  EntryGraphQl entryObj = new EntryGraphQl((JSONObject) entriesJSONObject.get(j),user);
-                 entries.add(entryObj);
+                 Integer mediaId=entryObj.getMedia().getAnilistMediaId();
+                 if(!mediaIds.contains(mediaId)) {
+                     mediaIds.add(mediaId);
+                     entries.add(entryObj);
+                 }
              }
          }
     }

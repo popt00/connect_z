@@ -1,4 +1,4 @@
-package ca.parimal.connectz.model.dao.entites;
+package ca.parimal.connectz.model.dao.entites.trash;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

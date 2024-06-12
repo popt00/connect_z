@@ -57,14 +57,14 @@ public class UserEntryServiceImpl implements IUserEntryService{
         Media media = new Media();
 //        Long mediaId= mediaGraphQl.getAnilistMediaId();
         media.setMediaId(mediaGraphQl.getAnilistMediaId());
-        media.setTitle(mediaGraphQl.getTitle());
+        media.setTitle(mediaGraphQl.getTitle().toString());
         return media;
     }
 
     private User getUser(UserGraphql userGraphql) {
         User user = new User();
         user.setName(userGraphql.getName());
-        user.setAnilistUserId(userGraphql.getAnilistUserId());
+        user.setUserId(userGraphql.getAnilistUserId());
         return user;
     }
     private Entry getEntry(User user, Media media, EntryGraphQl entryGraphQl) {

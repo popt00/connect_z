@@ -5,28 +5,29 @@ import jakarta.persistence.Embeddable;
 import org.hibernate.proxy.HibernateProxy;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 @Embeddable
 public class EntryKey implements Serializable {
 
     @Column(name = "user_id")
-    private Long userId;
+    private Integer userId;
 
     @Column(name = "media_id")
     private Integer mediaId;
 
     public EntryKey() {}
 
-    public EntryKey(Long userId, Integer mediaId) {
+    public EntryKey(Integer userId, Integer mediaId) {
         this.userId = userId;
         this.mediaId = mediaId;
     }
 
-    public Long getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
@@ -39,24 +40,15 @@ public class EntryKey implements Serializable {
     }
 
     @Override
-    public int hashCode() {
-        return super.hashCode();
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EntryKey entryKey = (EntryKey) o;
+        return Objects.equals(userId, entryKey.userId) && Objects.equals(mediaId, entryKey.mediaId);
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if(this==obj) return true;
-        if(obj==null)return false;
-
-        Class<?> objEffectiveClass = (
-                ( obj instanceof HibernateProxy ) ? ((HibernateProxy)obj).getHibernateLazyInitializer().getPersistentClass() : obj.getClass()
-        );
-        Class<?> thisEffectiveClass = (
-                ( this instanceof HibernateProxy ) ? ((HibernateProxy)this).getHibernateLazyInitializer().getPersistentClass() : this.getClass()
-        );
-        if(objEffectiveClass != thisEffectiveClass)return false;
-        EntryKey o = (EntryKey) obj;
-        if(this.mediaId == o.getMediaId() &&  this.userId== o.getUserId())return true;
-        return false;
+    public int hashCode() {
+        return Objects.hash(userId, mediaId);
     }
 }
