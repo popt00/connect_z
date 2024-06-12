@@ -29,8 +29,15 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     List<Entry> entries;
 
-    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
-    List<Role> roles;
+//    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
+//    List<Role> roles;
+//    public List<Role> getRoles() {
+//        return roles;
+//    }
+//
+//    public void setRoles(List<Role> roles) {
+//        this.roles = roles;
+//    }
 
     public User(int userId, String name){
         this.name = name;
@@ -49,13 +56,6 @@ public class User {
 //    }
 
 
-    public List<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
-    }
 
     public List<Entry> getEntries() {
         return entries;
