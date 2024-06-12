@@ -8,12 +8,12 @@ public class Entry{
     @EmbeddedId
     EntryKey id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @MapsId("userId")
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @MapsId("mediaId")
     @JoinColumn(name = "media_id")
     private Media media;
@@ -36,7 +36,7 @@ public class Entry{
     }
 
     public Entry(User user, Media media) {
-        this.id= new EntryKey();
+        this.id= new EntryKey(user.getUserId(),media.getMediaId());
         this.user = user;
         this.media = media;
     }

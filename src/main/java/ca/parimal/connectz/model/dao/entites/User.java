@@ -2,6 +2,8 @@ package ca.parimal.connectz.model.dao.entites;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -22,10 +24,10 @@ public class User {
     private String password;
 
     @Column(name="active")
-    private Integer active;
+    private Integer active=1;
 
-    @OneToMany(mappedBy = "user")
-    Set<Entry> entries;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    List<Entry> entries;
 
 
     public User(int userId, String name){
@@ -44,11 +46,12 @@ public class User {
 //        this.id = id;
 //    }
 
-    public Set<Entry> getEntries() {
+
+    public List<Entry> getEntries() {
         return entries;
     }
 
-    public void setEntries(Set<Entry> entries) {
+    public void setEntries(List<Entry> entries) {
         this.entries = entries;
     }
 

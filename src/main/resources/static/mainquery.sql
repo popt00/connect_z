@@ -14,8 +14,7 @@ CREATE TABLE `users`
     `active`   INT DEFAULT 1,
     PRIMARY KEY(`user_id`)
 )
-    engine=innodb
-DEFAULT charset=latin1;
+    engine=innodb;
 
 DROP TABLE IF EXISTS `roles`;
 
@@ -29,8 +28,7 @@ CREATE TABLE `roles`
     CONSTRAINT `authorities_idfk_1` FOREIGN KEY (`user_id`) REFERENCES `users`(
                                                                                `user_id`)
 )
-    engine=innodb
-DEFAULT charset=latin1;
+    engine=innodb;
 
 DROP TABLE IF EXISTS `media`;
 
@@ -40,8 +38,7 @@ CREATE TABLE `media`
     `title`    VARCHAR(256) DEFAULT "noname",
     PRIMARY KEY(`media_id`)
 )
-    engine=innodb
-DEFAULT charset=latin1;
+    engine=innodb;
 
 DROP TABLE IF EXISTS `entry`;
 
@@ -58,5 +55,4 @@ CREATE TABLE `entry`
     CONSTRAINT `entries_idfk_media_1` FOREIGN KEY (`media_id`) REFERENCES
         `media`(`media_id`)
 )
-    engine=innodb
-DEFAULT charset=latin1;
+    engine=innodb;

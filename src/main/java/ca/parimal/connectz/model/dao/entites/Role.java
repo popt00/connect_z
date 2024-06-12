@@ -1,6 +1,7 @@
 package ca.parimal.connectz.model.dao.entites;
 
 import jakarta.persistence.*;
+import org.modelmapper.internal.bytebuddy.implementation.bind.annotation.Default;
 
 @Entity(name = "roles")
 public class Role {
@@ -15,17 +16,20 @@ public class Role {
     private User userId;
 
     @Column(name = "role")
-    private     String role;
+    private String role="ROLE_USER";
+
+
+    public Role() {
+    }
+
+    public Role(User userId) {
+        this.userId = userId;
+    }
 
     public Role(User userId, String role) {
         this.userId = userId;
         this.role = role;
     }
-
-    public Role() {
-
-    }
-
     public long getId() {
         return id;
     }

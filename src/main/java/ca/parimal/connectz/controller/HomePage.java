@@ -34,6 +34,7 @@ public class HomePage {
     public String getUser(@PathVariable String username, Model model) throws IOException {
         //System.out.println(username);
         UserEntryCollection userEntryCollection = new UserEntryCollectionFactory().build(username);
+        if(userEntryCollection==null)return "errorpage";
         userEntryService.save(userEntryCollection);
 //        System.out.println(userData.getSeriesRatingData());
         model.addAttribute("userData", userEntryCollection);

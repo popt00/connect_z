@@ -6,66 +6,79 @@ import ca.parimal.connectz.controller.dto.entities.MediaGraphQl;
 import ca.parimal.connectz.controller.dto.entities.UserGraphql;
 import ca.parimal.connectz.model.dao.EntryRepository;
 import ca.parimal.connectz.model.dao.MediaRepository;
+import ca.parimal.connectz.model.dao.RolesRepository;
 import ca.parimal.connectz.model.dao.UserRepository;
 import ca.parimal.connectz.model.dao.entites.Entry;
 import ca.parimal.connectz.model.dao.entites.Media;
+import ca.parimal.connectz.model.dao.entites.Role;
 import ca.parimal.connectz.model.dao.entites.User;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserEntryServiceImpl implements IUserEntryService{
 
     UserRepository userRepository;
     EntryRepository entryRepository;
-    MediaRepository mediaRepository;
+    RolesRepository rolesRepository;
 
     @Autowired
-    public UserEntryServiceImpl(UserRepository userRepository, EntryRepository entryRepository, MediaRepository mediaRepository) {
+    public UserEntryServiceImpl(UserRepository userRepository, EntryRepository entryRepository, MediaRepository mediaRepository, RolesRepository rolesRepository) {
         this.userRepository = userRepository;
         this.entryRepository = entryRepository;
-        this.mediaRepository = mediaRepository;
+        this.rolesRepository = rolesRepository;
     }
 
-    @Override
 
+    @Override
+    @Transactional
     public void save(UserEntryCollection userEntryCollection) {
-        User user = getUser(userEntryCollection.getUser());
+        if(userEntryCollection == null) return;
+        User user = getUser(userEntryCollection.getUser(),userEntryCollection.getEntries());
+        if(userRepository.existsById(Long.valueOf(user.getUserId()))) return;{
+            userRepository.delete(user);
+        }
+        Role role = new Role(user,"ROLE_USER");
         System.out.println(user);
         userRepository.save(user);
-        ArrayList<EntryGraphQl> entryGraphQls = userEntryCollection.getEntries();
-        for (EntryGraphQl entryGraphQl : entryGraphQls) {
-            Media media = getMedia(entryGraphQl.getMedia());
-            System.out.println(media);
-            System.out.println(media.getTitle()+"::"+media.getTitle().length());
-            Entry entry = getEntry(user,media, entryGraphQl);
-            try{
-                System.out.println(entry);
-                entryRepository.save(entry);
-            }
-            catch (Exception e){
-                System.out.println("\n\n\n\n\n       ERRRRRRRRRRRRRRRO: "+media);
-                System.out.println(e.getMessage());
-            }
-        }
+        rolesRepository.save(role);
+        entryRepository.saveAll(user.getEntries());
         System.out.println("entries saved");
     }
 
-    private Media getMedia(MediaGraphQl mediaGraphQl) {
-        Media media = new Media();
-//        Long mediaId= mediaGraphQl.getAnilistMediaId();
-        media.setMediaId(mediaGraphQl.getAnilistMediaId());
-        media.setTitle(mediaGraphQl.getTitle().toString());
-        return media;
-    }
 
-    private User getUser(UserGraphql userGraphql) {
+    private User getUser(UserGraphql userGraphql, ArrayList<EntryGraphQl> entryGraphQls) {
         User user = new User();
         user.setName(userGraphql.getName());
         user.setUserId(userGraphql.getAnilistUserId());
+        user.setEntries(getEntries(user,entryGraphQls));
         return user;
+    }
+
+    private List<Entry> getEntries(User user, ArrayList<EntryGraphQl> entryGraphQls) {
+        List<Entry> entries = new ArrayList<>();
+
+        for (EntryGraphQl entryGraphQl : entryGraphQls) {
+            Media media = getMedia(entryGraphQl.getMedia());
+            Entry entry = getEntry(user,media, entryGraphQl);
+//            System.out.println("entrykey class: "+entry.getId().getClass());
+//            System.out.println("entrykey: "+entry.getId());
+//            System.out.println("entrykey hashcode: "+entry.getId().hashCode());
+//            System.out.println("entrykey media: "+entry.getMedia());
+//            System.out.println("entrykey user: "+entry.getUser());
+            entries.add(entry);
+        }
+        return entries;
+    }
+    private Media getMedia(MediaGraphQl mediaGraphQl) {
+        Media media = new Media();
+        media.setMediaId(mediaGraphQl.getAnilistMediaId());
+        media.setTitle(mediaGraphQl.getTitle());
+        return media;
     }
     private Entry getEntry(User user, Media media, EntryGraphQl entryGraphQl) {
         Entry entry = new Entry(user,media);

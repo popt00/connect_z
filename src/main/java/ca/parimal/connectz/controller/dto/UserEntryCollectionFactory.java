@@ -8,12 +8,16 @@ import org.json.simple.JSONObject;
 public class UserEntryCollectionFactory {
     public UserEntryCollection build(String userName){
         JSONObject mediaListObject = getMediaObject(userName);
+        if(mediaListObject == null){
+            return null;
+        }
         UserGraphql user = new UserGraphql((JSONObject) mediaListObject.get("user"));
         UserEntryCollection userEntryCollection = new UserEntryCollection((JSONArray) mediaListObject.get("lists"),user);
         return userEntryCollection;
     }
     public JSONObject getMediaObject(String userName){
         JSONObject obj = new GraphqlRequest().send(userName,getQuery(userName));
+        if(obj == null) return null;
         JSONObject mediaListObject = (JSONObject) ((JSONObject) obj.get("data")).get("MediaListCollection");;
         return mediaListObject;
     }
