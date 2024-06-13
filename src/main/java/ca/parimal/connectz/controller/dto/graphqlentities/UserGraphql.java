@@ -1,25 +1,25 @@
-package ca.parimal.connectz.controller.dto.entities;
+package ca.parimal.connectz.controller.dto.graphqlentities;
 
 import org.json.simple.JSONObject;
 
 public class UserGraphql {
     public static final String QUERY = "user {name,id}";
-    private Integer anilistUserId;
+    private Integer userId;
     private String username;
     private String password;
     private Integer active;
 
-    public UserGraphql(Integer anilistUserId, String username) {
-        this.anilistUserId = anilistUserId;
+    public UserGraphql(Integer userId, String username) {
+        this.userId = userId;
         this.username = username;
     }
 
-    public Integer getAnilistUserId() {
-        return anilistUserId;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setAnilistUserId(Integer anilistUserId) {
-        this.anilistUserId = anilistUserId;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getUsername() {
@@ -51,7 +51,7 @@ public class UserGraphql {
     }
     public UserGraphql(JSONObject user){
         setUsername(user.get("name").toString());
-        setAnilistUserId(Integer.parseInt(user.get("id").toString()));
+        setUserId(Integer.parseInt(user.get("id").toString()));
     }
 
 }

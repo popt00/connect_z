@@ -1,11 +1,5 @@
-package ca.parimal.connectz.controller.dto.entities;
+package ca.parimal.connectz.controller.dto.graphqlentities;
 
-import ca.parimal.connectz.model.dao.entites.Entry;
-import ca.parimal.connectz.model.dao.entites.Media;
-import ca.parimal.connectz.model.dao.entites.User;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
 import org.json.simple.JSONObject;
 
 public class EntryGraphQl {

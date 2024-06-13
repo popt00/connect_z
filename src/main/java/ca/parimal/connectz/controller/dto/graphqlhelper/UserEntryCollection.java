@@ -1,7 +1,7 @@
-package ca.parimal.connectz.controller.dto;
-import ca.parimal.connectz.controller.dto.entities.EntryGraphQl;
-import ca.parimal.connectz.controller.dto.entities.MediaGraphQl;
-import ca.parimal.connectz.controller.dto.entities.UserGraphql;
+package ca.parimal.connectz.controller.dto.graphqlhelper;
+import ca.parimal.connectz.controller.dto.graphqlentities.EntryGraphQl;
+import ca.parimal.connectz.controller.dto.graphqlentities.MediaGraphQl;
+import ca.parimal.connectz.controller.dto.graphqlentities.UserGraphql;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -26,7 +26,7 @@ public class UserEntryCollection {
              for(int j=0;j<entriesJSONObject.size();j++) {
                  //System.out.println(entriesJSONObject.get(j).toString());
                  EntryGraphQl entryObj = new EntryGraphQl((JSONObject) entriesJSONObject.get(j),user);
-                 Integer mediaId=entryObj.getMedia().getAnilistMediaId();
+                 Integer mediaId=entryObj.getMedia().getMediaId();
                  if(!mediaIds.contains(mediaId)) {
                      mediaIds.add(mediaId);
                      entries.add(entryObj);

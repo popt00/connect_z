@@ -1,7 +1,6 @@
-package ca.parimal.connectz.controller.dto;
+package ca.parimal.connectz.controller.dto.graphqlhelper;
 
-import ca.parimal.connectz.controller.dto.entities.UserGraphql;
-import ca.parimal.connectz.model.dao.entites.User;
+import ca.parimal.connectz.controller.dto.graphqlentities.UserGraphql;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 

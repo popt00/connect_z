@@ -1,6 +1,7 @@
 package ca.parimal.connectz.controller;
-import ca.parimal.connectz.controller.dto.UserEntryCollection;
-import ca.parimal.connectz.controller.dto.UserEntryCollectionFactory;
+import ca.parimal.connectz.controller.dto.graphqlentities.UserGraphql;
+import ca.parimal.connectz.controller.dto.graphqlhelper.UserEntryCollection;
+import ca.parimal.connectz.controller.dto.graphqlhelper.UserEntryCollectionFactory;
 import ca.parimal.connectz.model.dao.entites.User;
 import ca.parimal.connectz.services.UserEntryService;
 import ca.parimal.connectz.services.UserService;
@@ -37,9 +38,17 @@ public class HomePage {
         model.addAttribute("users", users);
         return "users";
     }
-    @PostMapping("/users")
-    public String addUser(@ModelAttribute("username") String username){
-        UserEntryCollection userEntryCollection = new UserEntryCollectionFactory().build(username);
+    @GetMapping("/adduser")
+    public String getAddUser(Model model) throws IOException {
+        UserGraphql userGraphql = new UserGraphql();
+        model.addAttribute("user", userGraphql);
+        return "adduser";
+    }
+
+    @PostMapping("/adduser")
+    public String addUser(@ModelAttribute("user") UserGraphql user){
+        System.out.println(user.getUsername());
+        UserEntryCollection userEntryCollection = new UserEntryCollectionFactory().build(user.getUsername());
         if(userEntryCollection==null)return "error";
         userEntryService.save(userEntryCollection);
         return "redirect:users";

@@ -1,8 +1,8 @@
 package ca.parimal.connectz.config;
 
-import ca.parimal.connectz.controller.dto.entities.EntryGraphQl;
-import ca.parimal.connectz.controller.dto.entities.MediaGraphQl;
-import ca.parimal.connectz.controller.dto.entities.UserGraphql;
+import ca.parimal.connectz.controller.dto.graphqlentities.EntryGraphQl;
+import ca.parimal.connectz.controller.dto.graphqlentities.MediaGraphQl;
+import ca.parimal.connectz.controller.dto.graphqlentities.UserGraphql;
 import ca.parimal.connectz.model.dao.entites.Entry;
 import ca.parimal.connectz.model.dao.entites.Media;
 import ca.parimal.connectz.model.dao.entites.User;

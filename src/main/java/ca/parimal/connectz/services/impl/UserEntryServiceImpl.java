@@ -1,9 +1,9 @@
 package ca.parimal.connectz.services.impl;
 
-import ca.parimal.connectz.controller.dto.UserEntryCollection;
-import ca.parimal.connectz.controller.dto.entities.EntryGraphQl;
-import ca.parimal.connectz.controller.dto.entities.MediaGraphQl;
-import ca.parimal.connectz.controller.dto.entities.UserGraphql;
+import ca.parimal.connectz.controller.dto.graphqlhelper.UserEntryCollection;
+import ca.parimal.connectz.controller.dto.graphqlentities.EntryGraphQl;
+import ca.parimal.connectz.controller.dto.graphqlentities.MediaGraphQl;
+import ca.parimal.connectz.controller.dto.graphqlentities.UserGraphql;
 import ca.parimal.connectz.model.dao.EntryRepository;
 import ca.parimal.connectz.model.dao.MediaRepository;
 import ca.parimal.connectz.model.dao.RolesRepository;
@@ -41,12 +41,13 @@ public class UserEntryServiceImpl implements UserEntryService {
         if(userEntryCollection == null) return;
         User user = getUser(userEntryCollection.getUser(),userEntryCollection.getEntries());
         Long userId=Long.valueOf(user.getUserId());
-        System.out.println(user);
+        System.out.println("(userentryservice)saving user: "+user);
         if(!userRepository.existsById(userId)){
             Role role = new Role(user,"ROLE_USER");
+            userRepository.save(user);
             rolesRepository.save(role);
         }
-        userRepository.save(user);
+        else userRepository.save(user);
         entryRepository.saveAll(user.getEntries());
         System.out.println("entries saved");
     }
@@ -60,7 +61,7 @@ public class UserEntryServiceImpl implements UserEntryService {
     private User getUser(UserGraphql userGraphql, ArrayList<EntryGraphQl> entryGraphQls) {
         User user = new User();
         user.setUsername(userGraphql.getUsername());
-        user.setUserId(userGraphql.getAnilistUserId());
+        user.setUserId(userGraphql.getUserId());
         user.setEntries(getEntries(user,entryGraphQls));
         return user;
     }
@@ -82,7 +83,7 @@ public class UserEntryServiceImpl implements UserEntryService {
     }
     private Media getMedia(MediaGraphQl mediaGraphQl) {
         Media media = new Media();
-        media.setMediaId(mediaGraphQl.getAnilistMediaId());
+        media.setMediaId(mediaGraphQl.getMediaId());
         media.setTitle(mediaGraphQl.getTitle());
         return media;
     }
