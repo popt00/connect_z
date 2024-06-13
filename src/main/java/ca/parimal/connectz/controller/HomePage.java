@@ -3,6 +3,7 @@ import ca.parimal.connectz.controller.dto.graphqlentities.UserGraphql;
 import ca.parimal.connectz.controller.dto.graphqlhelper.UserEntryCollection;
 import ca.parimal.connectz.controller.dto.graphqlhelper.UserEntryCollectionFactory;
 import ca.parimal.connectz.model.dao.entites.User;
+import ca.parimal.connectz.services.UserCompService;
 import ca.parimal.connectz.services.UserEntryService;
 import ca.parimal.connectz.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
 
 @Controller
 public class HomePage {
@@ -22,6 +26,8 @@ public class HomePage {
     UserEntryService userEntryService;
     @Autowired
     UserService userService;
+    @Autowired
+    UserCompService userCompService;
 
     @GetMapping("/users/{username}")
     public String getUser(@PathVariable String username, Model model) throws IOException {
@@ -53,5 +59,17 @@ public class HomePage {
         userEntryService.save(userEntryCollection);
         return "redirect:users";
     }
+    /*TODO
+    *  compatiblity: similar interests in animes
+    *  opposite: opposite of you
+    *  highdiff: high difference in rating of individual animes 1x(4 - 9)> 2x(5 - 9)*/
+    @GetMapping("/computation/{username}")
+    public String getCompatibility(@PathVariable String username, Model model) throws IOException {
+        User user = userService.findByUsername(username);
+        HashMap<User, Float> compatibilities = userCompService.compatibilities(user);
+        model.addAttribute("map", compatibilities.entrySet());
+        return "computation";
+    }
+
 
 }
