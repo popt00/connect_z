@@ -16,7 +16,8 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests (
                 configurer -> configurer
-                        .requestMatchers("/computation/").hasRole("USER")
+                        .requestMatchers("/currentuser/*").hasRole("USER")
+                        .requestMatchers("/admin/*").hasRole("ADMIN")
                         .anyRequest().authenticated()
         ).formLogin(
                 formLogin -> formLogin.loginPage("/login")
@@ -25,6 +26,8 @@ public class SecurityConfig {
         ).logout(
                 logout -> logout.logoutUrl("/logout")
                         .permitAll()
+        ).exceptionHandling(
+                configurer -> configurer.accessDeniedPage("/access-denied")
         );
         return http.build();
     }

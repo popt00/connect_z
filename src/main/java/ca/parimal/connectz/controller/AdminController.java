@@ -1,27 +1,28 @@
 package ca.parimal.connectz.controller;
+import ca.parimal.connectz.controller.dto.controllerdto.NewUserDto;
 import ca.parimal.connectz.controller.dto.graphqlentities.UserGraphql;
 import ca.parimal.connectz.controller.dto.graphqlhelper.UserEntryCollection;
 import ca.parimal.connectz.controller.dto.graphqlhelper.UserEntryCollectionFactory;
+import ca.parimal.connectz.model.dao.entites.Role;
 import ca.parimal.connectz.model.dao.entites.User;
 import ca.parimal.connectz.services.UserCompService;
 import ca.parimal.connectz.services.UserEntryService;
 import ca.parimal.connectz.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 
 
-@Controller
-public class HomePage {
+@Controller()
+@RequestMapping("/admin")
+public class AdminController {
     @Autowired
     UserEntryService userEntryService;
     @Autowired
@@ -36,7 +37,7 @@ public class HomePage {
             return "error";
         }
         model.addAttribute("user", user);
-        return "home";
+        return "currentuser";
     }
     @GetMapping("/users")
     public String getAllUsers(Model model) throws IOException {
@@ -46,17 +47,21 @@ public class HomePage {
     }
     @GetMapping("/adduser")
     public String getAddUser(Model model) throws IOException {
-        UserGraphql userGraphql = new UserGraphql();
-        model.addAttribute("user", userGraphql);
+        NewUserDto newUserDto = new NewUserDto();
+        model.addAttribute("user", newUserDto);
         return "adduser";
     }
 
+    /* TODO password
+     */
     @PostMapping("/adduser")
-    public String addUser(@ModelAttribute("user") UserGraphql user){
-        System.out.println(user.getUsername());
-        UserEntryCollection userEntryCollection = new UserEntryCollectionFactory().build(user.getUsername());
+    public String addUser(@ModelAttribute("user") NewUserDto userDto){
+        System.out.println(userDto.getUsername());
+        UserEntryCollection userEntryCollection = new UserEntryCollectionFactory().build(userDto.getUsername());
         if(userEntryCollection==null)return "error";
-        userEntryService.save(userEntryCollection);
+        User currentUser = userEntryService.save(userEntryCollection);
+        Role role = new Role(currentUser,userDto.getRole());
+        userService.saveRole(role);
         return "redirect:users";
     }
     /*TODO
@@ -71,9 +76,6 @@ public class HomePage {
         return "computation";
     }
 
-    @GetMapping("/login")
-    public String getLogin(Model model) throws IOException {
-        return "login";
-    }
+
 
 }

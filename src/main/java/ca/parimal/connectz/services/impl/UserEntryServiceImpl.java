@@ -37,8 +37,8 @@ public class UserEntryServiceImpl implements UserEntryService {
 
     @Override
     @Transactional
-    public void save(UserEntryCollection userEntryCollection) {
-        if(userEntryCollection == null) return;
+    public User save(UserEntryCollection userEntryCollection) {
+        if(userEntryCollection == null) return null;
         User user = getUser(userEntryCollection.getUser(),userEntryCollection.getEntries());
         Long userId=Long.valueOf(user.getUserId());
         System.out.println("(userentryservice)saving user: "+user);
@@ -50,6 +50,7 @@ public class UserEntryServiceImpl implements UserEntryService {
         else userRepository.save(user);
         entryRepository.saveAll(user.getEntries());
         System.out.println("entries saved");
+        return  user;
     }
 
     @Override

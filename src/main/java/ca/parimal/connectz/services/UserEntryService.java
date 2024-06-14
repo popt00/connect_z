@@ -5,6 +5,6 @@ import ca.parimal.connectz.model.dao.entites.User;
 
 
 public interface UserEntryService {
-    void save(UserEntryCollection userEntryCollection);
+    User save(UserEntryCollection userEntryCollection);
     User findByUsername(String username);
 }
