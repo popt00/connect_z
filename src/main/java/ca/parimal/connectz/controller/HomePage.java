@@ -71,5 +71,9 @@ public class HomePage {
         return "computation";
     }
 
+    @GetMapping("/login")
+    public String getLogin(Model model) throws IOException {
+        return "login";
+    }
 
 }

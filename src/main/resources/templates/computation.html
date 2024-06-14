@@ -6,7 +6,13 @@
 </head>
 <body>
     <div>
+        <div>
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Sign Out"/>
+            </form>
+        </div>
         <ul>
+
             <li th:each="entry: ${map}">
                 <span th:text="${entry.key} "></span> = <span th:text="${entry.value}"></span>
             </li>
