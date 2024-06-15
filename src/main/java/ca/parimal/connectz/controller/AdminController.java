@@ -68,7 +68,8 @@ public class AdminController {
     /*TODO
     *  compatiblity: similar interests in animes
     *  opposite: opposite of you
-    *  highdiff: high difference in rating of individual animes 1x(4 - 9)> 2x(5 - 9)*/
+    *  highdiff: high difference in rating of individual animes 1x(4 - 9)> 2x(5 - 9)
+    *  Some other parameter of checking like one anime favourites etc...*/
     @GetMapping("/computation/{username}")
     public String getCompatibility(@PathVariable String username, Model model) throws IOException {
         User user = userService.findByUsername(username);
