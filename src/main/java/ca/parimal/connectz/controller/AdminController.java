@@ -1,21 +1,18 @@
 package ca.parimal.connectz.controller;
 import ca.parimal.connectz.controller.dto.controllerdto.NewUserDto;
-import ca.parimal.connectz.controller.dto.graphqlentities.UserGraphql;
 import ca.parimal.connectz.controller.dto.graphqlhelper.UserEntryCollection;
 import ca.parimal.connectz.controller.dto.graphqlhelper.UserEntryCollectionFactory;
 import ca.parimal.connectz.model.dao.entites.Role;
 import ca.parimal.connectz.model.dao.entites.User;
+import ca.parimal.connectz.services.Convertor;
 import ca.parimal.connectz.services.UserCompService;
-import ca.parimal.connectz.services.UserEntryService;
 import ca.parimal.connectz.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 
@@ -24,7 +21,7 @@ import java.util.List;
 @RequestMapping("/admin")
 public class AdminController {
     @Autowired
-    UserEntryService userEntryService;
+    Convertor convertor;
     @Autowired
     UserService userService;
     @Autowired
@@ -37,6 +34,8 @@ public class AdminController {
             return "error";
         }
         model.addAttribute("user", user);
+        HashMap<User, Float> compatibilities = userCompService.compatibilities(user);
+        model.addAttribute("map", compatibilities.entrySet());
         return "currentuser";
     }
     @GetMapping("/users")
@@ -52,14 +51,16 @@ public class AdminController {
         return "adduser";
     }
 
-    /* TODO password
+    /* TODO password bcrypt
      */
     @PostMapping("/adduser")
     public String addUser(@ModelAttribute("user") NewUserDto userDto){
         System.out.println(userDto.getUsername());
         UserEntryCollection userEntryCollection = new UserEntryCollectionFactory().build(userDto.getUsername());
         if(userEntryCollection==null)return "error";
-        User currentUser = userEntryService.save(userEntryCollection);
+        User currentUser = convertor.getUser(userEntryCollection);//userEntryService.save(userEntryCollection);
+        currentUser.setPassword("{noop}"+userDto.getPassword());
+        userService.saveUser(currentUser);
         Role role = new Role(currentUser,userDto.getRole());
         userService.saveRole(role);
         return "redirect:users";

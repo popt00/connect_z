@@ -16,6 +16,9 @@
               Username: <input type="text" th:field="*{username}"/>
           </p>
           <p>
+              Password: <input type="password" th:field="*{password}"/>
+          </p>
+          <p>
               Role :
               <br><input type="radio" th:value="ROLE_ADMIN" th:field="*{role}"> admin
               <br><input type="radio" th:value="ROLE_USER" th:field="*{role}"> user

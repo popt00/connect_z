@@ -10,7 +10,7 @@ CREATE TABLE `users`
 (
     `user_id`  INT NOT NULL,
     `username` VARCHAR(50) NOT NULL,
-    `password` VARCHAR(50),
+    `password` VARCHAR(68),
     `active`   INT DEFAULT 1,
     PRIMARY KEY(`user_id`)
 )

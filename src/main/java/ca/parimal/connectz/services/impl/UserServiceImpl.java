@@ -22,12 +22,32 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User saveUser(User user) {
+        System.out.println("(userService)saving user: "+user);
+        User savedUser;
+        Long userId=Long.valueOf(user.getUserId());
+        if(!userRepository.existsById(userId)){
+            Role role = new Role(user,"ROLE_USER");
+            savedUser = userRepository.save(user);
+            rolesRepository.save(role);
+        }
+        else savedUser = userRepository.save(user);
+//        entryRepository.saveAll(user.getEntries());
+        return savedUser;
+    }
+
+    @Override
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
     @Override
     public void saveRole(Role role) {
+        List<Role> roles = rolesRepository.findAllByUserId(role.getUserId());
+
+        for(Role roleTemp: roles){
+            rolesRepository.delete(roleTemp);
+        }
         rolesRepository.save(role);
     }
 }

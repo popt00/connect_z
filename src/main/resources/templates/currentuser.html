@@ -16,6 +16,14 @@
         </h2>
     </div>
     <div>
+        <ul>
+
+            <li th:each="entry: ${map}">
+                <span th:text="${entry.key} "></span> = <span th:text="${entry.value}"></span>
+            </li>
+        </ul>
+    </div>
+    <div>
         <table>
             <tr>
                 <td>Name</td>

@@ -2,6 +2,8 @@ package ca.parimal.connectz.model.dao.entites;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity(name = "roles")
 public class Role {
 
@@ -59,5 +61,13 @@ public class Role {
                 "userId=" + userId +
                 ", role='" + role + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Role role1 = (Role) o;
+        return Objects.equals(userId, role1.userId) && Objects.equals(role, role1.role);
     }
 }
