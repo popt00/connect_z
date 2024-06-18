@@ -4,47 +4,49 @@ import jakarta.persistence.*;
 
 import java.util.Objects;
 
-@Entity(name = "roles")
+@Entity
+@Table(name = "roles",
+        uniqueConstraints={@UniqueConstraint(columnNames ={"user_id","role"})})
 public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JoinColumn(name = "role_id")
-    private long id;
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User userId;
+    private User user;
 
     @Column(name = "role")
-    private String role="ROLE_USER";
+    private String role;
 
 
     public Role() {
     }
 
     public Role(User userId) {
-        this.userId = userId;
+        this.user = userId;
     }
 
-    public Role(User userId, String role) {
-        this.userId = userId;
+    public Role(User user, String role) {
+        this.user = user;
         this.role = role;
     }
-    public long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
     public User getUserId() {
-        return userId;
+        return user;
     }
 
     public void setUserId(User userId) {
-        this.userId = userId;
+        this.user = userId;
     }
 
     public String getRole() {
@@ -58,7 +60,7 @@ public class Role {
     @Override
     public String toString() {
         return "Roles{" +
-                "userId=" + userId +
+                "user=" + user +
                 ", role='" + role + '\'' +
                 '}';
     }
@@ -68,6 +70,6 @@ public class Role {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Role role1 = (Role) o;
-        return Objects.equals(userId, role1.userId) && Objects.equals(role, role1.role);
+        return Objects.equals(user, role1.user) && Objects.equals(role, role1.role);
     }
 }

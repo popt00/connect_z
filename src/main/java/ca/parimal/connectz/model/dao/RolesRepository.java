@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Repository
-public interface RolesRepository extends JpaRepository<Role, Long> {
+public interface RolesRepository extends JpaRepository<Role, Integer> {
 //    List<Role> findAllByUserId(Long userId);
-    List<Role> findAllByUserId(User userId);
+//    List<Role> findAllByUserId(User userId);
+//    boolean existsByUserAndRole(User userId, String role);
+//    Role findByUserAndRole(User userId, String role);
 }

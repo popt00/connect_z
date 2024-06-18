@@ -13,5 +13,5 @@ public interface UserService {
     List<User> findAll();
     User saveUser(User user);
     User findByUsername(String username);
-    void saveRole(Role role);
+    void saveRole(User user, String role);
 }

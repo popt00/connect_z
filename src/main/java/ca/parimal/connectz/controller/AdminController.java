@@ -55,14 +55,19 @@ public class AdminController {
      */
     @PostMapping("/adduser")
     public String addUser(@ModelAttribute("user") NewUserDto userDto){
-        System.out.println(userDto.getUsername());
+        //System.out.println(userDto.getUsername());
+//        if(userService.findByUsername(userDto.getUsername())!=null){
+//            /*TODO user already exists prompt
+//            * */
+//            return "redirect:users";
+//        }
         UserEntryCollection userEntryCollection = new UserEntryCollectionFactory().build(userDto.getUsername());
         if(userEntryCollection==null)return "error";
         User currentUser = convertor.getUser(userEntryCollection);//userEntryService.save(userEntryCollection);
         currentUser.setPassword("{noop}"+userDto.getPassword());
-        userService.saveUser(currentUser);
-        Role role = new Role(currentUser,userDto.getRole());
-        userService.saveRole(role);
+        User savedUser = userService.saveUser(currentUser);
+        //Role role = new Role(savedUser,userDto.getRole());
+        userService.saveRole(savedUser, userDto.getRole());
         return "redirect:users";
     }
     /*TODO
