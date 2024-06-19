@@ -7,9 +7,17 @@
 <body>
     <div>
         <div>
+            <div>
+                <a th:href="@{/}">Homepage</a>
+            </div><hr>
+        </div>
+        <div>
             <form th:action="@{/logout}" method="post">
                 <input type="submit" value="Sign Out"/>
             </form>
+        </div>
+        <div>
+            <a th:href="@{/admin/adduser}">Add user</a>
         </div>
         <div>
             <table>
@@ -19,9 +27,17 @@
                     <th>active</th>
                 </tr>
                 <tr th:each ="tempRow : ${users}">
-                    <td th:text = "${tempRow.username}"></td>
+                    <td>
+                        <a th:href="@{/admin/user(username=${tempRow.username})}" th:text = "${tempRow.username}"></a>
+                    </td>
                     <td th:text = "${tempRow.userId}"></td>
                     <td th:text = "${tempRow.active}"></td>
+                    <td>
+                        <a th:href="@{/admin/updateuser(username=${tempRow.username})}">Update</a>
+                    </td>
+                    <td>
+                        <a th:href="@{/admin/deleteuser(username=${tempRow.username})}">Delete</a>
+                    </td>
                 </tr>
             </table>
         </div>

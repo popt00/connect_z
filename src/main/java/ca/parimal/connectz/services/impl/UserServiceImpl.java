@@ -5,6 +5,7 @@ import ca.parimal.connectz.model.dao.UserRepository;
 import ca.parimal.connectz.model.dao.entites.Role;
 import ca.parimal.connectz.model.dao.entites.User;
 import ca.parimal.connectz.services.UserService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
+
     @Autowired
     private UserRepository userRepository;
 
@@ -31,6 +33,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+    @Override
+    @Transactional
+    public void deleteUser(User user) {
+        userRepository.delete(user);
     }
 
     @Override

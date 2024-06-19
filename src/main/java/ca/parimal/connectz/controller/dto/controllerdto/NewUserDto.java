@@ -1,10 +1,14 @@
 package ca.parimal.connectz.controller.dto.controllerdto;
 
+import java.util.List;
 public class NewUserDto {
     private String username;
     private String password;
-    private String role;
-    public  NewUserDto(){}
+    private List<String> roles;
+
+    public  NewUserDto(List<String> roles) {
+        this.roles = roles;
+    }
     public String getUsername() {
         return username;
     }
@@ -21,11 +25,11 @@ public class NewUserDto {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
+    public List<String> getRoles() {
+        return roles;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRoles(List<String> role) {
+        this.roles = role;
     }
 }

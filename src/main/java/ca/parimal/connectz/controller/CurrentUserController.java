@@ -30,6 +30,7 @@ public class CurrentUserController {
         System.out.println(auth.getAuthorities().toString());
         User user = userService.findByUsername(currentUser);
         if (user == null) {
+            System.out.println("user is null in currentUserController: currentUser");
             return "error";
         }
         model.addAttribute("user", user);

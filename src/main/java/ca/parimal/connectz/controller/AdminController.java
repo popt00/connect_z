@@ -8,6 +8,7 @@ import ca.parimal.connectz.services.Convertor;
 import ca.parimal.connectz.services.UserCompService;
 import ca.parimal.connectz.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,11 +27,14 @@ public class AdminController {
     UserService userService;
     @Autowired
     UserCompService userCompService;
+    @Value("${userroles}")
+    private List<String> static_roles;
 
-    @GetMapping("/users/{username}")
-    public String getUser(@PathVariable String username, Model model) throws IOException {
+    @GetMapping("/user")
+    public String getUser(@RequestParam("username") String username, Model model) throws IOException {
         User user = userService.findByUsername(username);
         if (user == null) {
+            System.out.println("user is null in admincontroller:user");
             return "error";
         }
         model.addAttribute("user", user);
@@ -46,15 +50,21 @@ public class AdminController {
     }
     @GetMapping("/adduser")
     public String getAddUser(Model model) throws IOException {
-        NewUserDto newUserDto = new NewUserDto();
+        NewUserDto newUserDto = new NewUserDto(static_roles);
+        System.out.println(newUserDto.getRoles());
         model.addAttribute("user", newUserDto);
         return "adduser";
     }
 
+    /*
+    * TODO role duplicate entry
+    *   Duplicate entry '5425591-ROLE_ADMIN' for key 'roles.authorities_idx_1' for existing user
+    * */
     /* TODO password bcrypt
      */
     @PostMapping("/adduser")
     public String addUser(@ModelAttribute("user") NewUserDto userDto){
+
         //System.out.println(userDto.getUsername());
 //        if(userService.findByUsername(userDto.getUsername())!=null){
 //            /*TODO user already exists prompt
@@ -62,14 +72,37 @@ public class AdminController {
 //            return "redirect:users";
 //        }
         UserEntryCollection userEntryCollection = new UserEntryCollectionFactory().build(userDto.getUsername());
-        if(userEntryCollection==null)return "error";
+        if(userEntryCollection==null){
+            System.out.println("userrntrycollection is null in admincontroller:adduser");return "error";}
         User currentUser = convertor.getUser(userEntryCollection);//userEntryService.save(userEntryCollection);
         currentUser.setPassword("{noop}"+userDto.getPassword());
         User savedUser = userService.saveUser(currentUser);
         //Role role = new Role(savedUser,userDto.getRole());
-        userService.saveRole(savedUser, userDto.getRole());
+        for(String role: userDto.getRoles()){
+            userService.saveRole(savedUser, role);
+        }
         return "redirect:users";
     }
+
+    @GetMapping("/updateuser")
+    public String getUpdateUser( @RequestParam("username") String username,Model model) throws IOException {
+        User user = userService.findByUsername(username);
+        NewUserDto newUserDto = new NewUserDto(static_roles);
+        /*TODO for updating existing role
+        * */
+        newUserDto.setUsername(username);
+        newUserDto.setPassword(user.getPassword());
+        model.addAttribute("user", newUserDto);
+        return "adduser";
+    }
+
+    @GetMapping("deleteuser")
+    public String deleteUser(@RequestParam("username") String username, Model model) throws IOException {
+        User user = userService.findByUsername(username);
+        userService.deleteUser(user);
+        return "redirect:users";
+    }
+
     /*TODO
     *  compatiblity: similar interests in animes
     *  opposite: opposite of you

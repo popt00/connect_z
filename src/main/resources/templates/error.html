@@ -5,13 +5,16 @@
     <title>Connectz</title>
 </head>
 <body>
-<div>
-    <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Sign Out"/>
-    </form>
-</div>
-<h2>
-  server error occured
-</h2>
+    <div>
+        <a th:href="@{/}">Homepage</a>
+    </div><hr>
+    <div>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+        </form>
+    </div>
+    <h2>
+      server error occured
+    </h2>
 </body>
 </html>

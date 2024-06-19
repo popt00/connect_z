@@ -6,20 +6,25 @@
 </head>
 <body>
     <div>
+        <a th:href="@{/}">Homepage</a>
+    </div><hr>
+    <div>
         <form th:action="@{/logout}" method="post">
             <input type="submit" value="Sign Out"/>
         </form>
     </div>
     <div>
         <h2>
-            <a th:text = ${user.username} th:href = "'https://anilist.co/user/'+${user.userId}" target="_blank" >
+            <a th:text = ${user.username} th:href = "'https://anilist.co/user/'+${user.userId}" target="_blank" ></a>
         </h2>
     </div>
     <div>
         <ul>
 
             <li th:each="entry: ${map}">
-                <span th:text="${entry.key} "></span> = <span th:text="${entry.value}"></span>
+                <a th:href="@{/admin/user(username=${entry.key.username})}" th:text="${entry.key.username} "></a>
+                =
+                <span th:text="${entry.value}"></span>
             </li>
         </ul>
     </div>
