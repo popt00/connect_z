@@ -51,45 +51,39 @@ public class AdminController {
     @GetMapping("/adduser")
     public String getAddUser(Model model) throws IOException {
         NewUserDto newUserDto = new NewUserDto(static_roles);
-        System.out.println(newUserDto.getRoles());
+//        System.out.println(newUserDto.getAuthorities());
         model.addAttribute("user", newUserDto);
         return "adduser";
     }
 
-    /*
-    * TODO role duplicate entry
-    *   Duplicate entry '5425591-ROLE_ADMIN' for key 'roles.authorities_idx_1' for existing user
-    * */
+
     /* TODO password bcrypt
      */
     @PostMapping("/adduser")
     public String addUser(@ModelAttribute("user") NewUserDto userDto){
 
-        //System.out.println(userDto.getUsername());
-//        if(userService.findByUsername(userDto.getUsername())!=null){
-//            /*TODO user already exists prompt
-//            * */
-//            return "redirect:users";
-//        }
         UserEntryCollection userEntryCollection = new UserEntryCollectionFactory().build(userDto.getUsername());
         if(userEntryCollection==null){
             System.out.println("userrntrycollection is null in admincontroller:adduser");return "error";}
         User currentUser = convertor.getUser(userEntryCollection);//userEntryService.save(userEntryCollection);
         currentUser.setPassword("{noop}"+userDto.getPassword());
         User savedUser = userService.saveUser(currentUser);
-        //Role role = new Role(savedUser,userDto.getRole());
-        for(String role: userDto.getRoles()){
+        userService.deleteAllAuthorities(savedUser);
+        for(String role: userDto.getAuthorities()){
+            System.out.println(role);
             userService.saveRole(savedUser, role);
         }
         return "redirect:users";
     }
 
+    /*
+    * TODO add non-existing authoriteis by dropdown static_roles
+    * */
     @GetMapping("/updateuser")
     public String getUpdateUser( @RequestParam("username") String username,Model model) throws IOException {
         User user = userService.findByUsername(username);
         NewUserDto newUserDto = new NewUserDto(static_roles);
-        /*TODO for updating existing role
-        * */
+        newUserDto.setAuthorities(userService.findAllAuthorities(user));
         newUserDto.setUsername(username);
         newUserDto.setPassword(user.getPassword());
         model.addAttribute("user", newUserDto);
@@ -115,7 +109,6 @@ public class AdminController {
         model.addAttribute("map", compatibilities.entrySet());
         return "computation";
     }
-
 
 
 }

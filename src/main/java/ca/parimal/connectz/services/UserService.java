@@ -11,8 +11,11 @@ import java.util.List;
 
 public interface UserService {
     List<User> findAll();
+    List<String> findAllAuthorities(User user);
     User saveUser(User user);
     void deleteUser(User user);
     User findByUsername(String username);
-    void saveRole(User user, String role);
+    void saveRole(User user, String authority);
+    void deleteAllAuthorities(User user);
+
 }

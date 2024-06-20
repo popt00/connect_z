@@ -4,10 +4,10 @@ import java.util.List;
 public class NewUserDto {
     private String username;
     private String password;
-    private List<String> roles;
+    private List<String> authorities;
 
-    public  NewUserDto(List<String> roles) {
-        this.roles = roles;
+    public  NewUserDto(List<String> authorities) {
+        this.authorities = authorities;
     }
     public String getUsername() {
         return username;
@@ -25,11 +25,11 @@ public class NewUserDto {
         this.password = password;
     }
 
-    public List<String> getRoles() {
-        return roles;
+    public List<String> getAuthorities() {
+        return authorities;
     }
 
-    public void setRoles(List<String> role) {
-        this.roles = role;
+    public void setAuthorities(List<String> authorities) {
+        this.authorities = authorities;
     }
 }

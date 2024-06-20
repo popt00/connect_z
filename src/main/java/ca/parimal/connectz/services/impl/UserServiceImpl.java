@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
@@ -25,7 +26,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<String> findAllAuthorities(User user){
+        return rolesRepository.findAuthorities(user);
+    }
+    @Override
     public User saveUser(User user) {
+
         System.out.println("(userService)saving user: "+user);
         return userRepository.save(user);
     }
@@ -40,20 +46,18 @@ public class UserServiceImpl implements UserService {
         userRepository.delete(user);
     }
 
+
     @Override
-    public void saveRole(User user,String role) {
-//        Role existingRole = rolesRepository.findByUserAndRole(user, role);
-//        if(existingRole != null) {
-//            System.out.println("role already exists");
-//            return;
-//        }
-        Role role1 = new Role(user,role);
-        try{
-            rolesRepository.save(role1);
-        }
-        catch(DuplicateKeyException e){
-            System.out.println("{userservide:saverole}already exist");
-            return;
-        }
+    public void saveRole(User user,String authority) {
+        Role role = new Role(user,authority);
+        rolesRepository.save(role);
+        return;
+    }
+
+
+    @Override
+    @Transactional
+    public void deleteAllAuthorities(User user){
+        rolesRepository.deleteAuthorities(user);
     }
 }

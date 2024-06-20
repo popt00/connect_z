@@ -23,10 +23,12 @@
           </p>
           <p>
               Role :
-              <input type="checkbox" th:field="*{roles}"
-                     th:each="tempRole :*{roles}"
+              <input type="checkbox" th:field="*{authorities}"
+                     th:each="tempRole :*{authorities}"
                      th:value="${tempRole}"
-                     th:text="${tempRole}"/>
+                     th:text="${tempRole}"
+
+              />
           </p>
           <p>
               <input type="submit" value="submit" />

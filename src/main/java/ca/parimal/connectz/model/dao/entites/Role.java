@@ -19,7 +19,7 @@ public class Role {
     private User user;
 
     @Column(name = "role")
-    private String role;
+    private String authority;
 
 
     public Role() {
@@ -29,9 +29,9 @@ public class Role {
         this.user = userId;
     }
 
-    public Role(User user, String role) {
+    public Role(User user, String authority) {
         this.user = user;
-        this.role = role;
+        this.authority = authority;
     }
     public Integer getId() {
         return id;
@@ -49,19 +49,19 @@ public class Role {
         this.user = userId;
     }
 
-    public String getRole() {
-        return role;
+    public String getAuthority() {
+        return authority;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setAuthority(String role) {
+        this.authority = role;
     }
 
     @Override
     public String toString() {
         return "Roles{" +
                 "user=" + user +
-                ", role='" + role + '\'' +
+                ", role='" + authority + '\'' +
                 '}';
     }
 
@@ -70,6 +70,6 @@ public class Role {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Role role1 = (Role) o;
-        return Objects.equals(user, role1.user) && Objects.equals(role, role1.role);
+        return Objects.equals(user, role1.user) && Objects.equals(authority, role1.authority);
     }
 }
