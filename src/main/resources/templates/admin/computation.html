@@ -6,11 +6,14 @@
 </head>
 <body>
     <div>
+        <a th:href="@{/}">Homepage</a>
+    </div><hr>
+    <div>
         <div>
             <form th:action="@{/logout}" method="post">
                 <input type="submit" value="Sign Out"/>
             </form>
-        </div>
+        </div><hr>
         <ul>
 
             <li th:each="entry: ${map}">

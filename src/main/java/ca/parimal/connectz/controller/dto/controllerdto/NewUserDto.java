@@ -9,6 +9,9 @@ public class NewUserDto {
     public  NewUserDto(List<String> authorities) {
         this.authorities = authorities;
     }
+    public  NewUserDto() {
+
+    }
     public String getUsername() {
         return username;
     }

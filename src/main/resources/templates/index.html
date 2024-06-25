@@ -10,10 +10,18 @@
           <a th:href="@{/}">Homepage</a>
       </div><hr>
       <div>
-          <a href="/admin/adduser"> adduser</a>
+          <form th:action="@{/logout}" method="post">
+              <input type="submit" value="Sign Out"/>
+          </form>
+      </div><hr>
+      <div>
+          <a th:href="@{/currentuser}" th:text="${user}"></a>
+      </div><hr>
+      <div>
+          <a th:href="@{/admin/adduser}"> adduser</a>
       </div>
       <div>
-          <a href="admin/users">all users</a>
+          <a th:href="@{admin/users}">all users</a>
       </div>
 
   </div>

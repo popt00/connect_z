@@ -20,6 +20,7 @@ public class SecurityConfig {
                 configurer -> configurer
                         .requestMatchers("/currentuser/*").hasRole("USER")
                         .requestMatchers("/admin/*").hasRole("ADMIN")
+                        .requestMatchers("signup").permitAll()
                         .anyRequest().authenticated()
         ).formLogin(
                 formLogin -> formLogin.loginPage("/login")

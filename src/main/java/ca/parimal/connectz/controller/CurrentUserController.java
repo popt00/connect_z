@@ -14,16 +14,14 @@ import java.security.Principal;
 import java.util.HashMap;
 
 @Controller
+
 public class CurrentUserController {
     @Autowired
     UserService userService;
     @Autowired
     UserCompService userCompService;
 
-    @GetMapping("/")
-    public String index(Model model, Principal principal) {
-        return "index";
-    }
+
     @GetMapping("/currentuser")
     public String getCurrentUser(Principal principal, Authentication auth, Model model) throws IOException {
         String currentUser = principal.getName();
@@ -38,8 +36,5 @@ public class CurrentUserController {
         model.addAttribute("map", compatibilities.entrySet());
         return "currentuser";
     }
-    @GetMapping("/login")
-    public String getLogin(Model model) throws IOException {
-        return "login";
-    }
+
 }
